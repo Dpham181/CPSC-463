@@ -3,16 +3,16 @@ CREATE DATABASE IF NOT EXISTS STORE_SITE;
 
 -- hosting database admin
 DROP USER IF EXISTS 'dbhost'@'localhost';
-CREATE USER IF NOT EXISTS 'dbhost'@'locahost' IDENTIFIED BY 'danh123';
+CREATE USER IF NOT EXISTS 'dbhost'@'localhost' IDENTIFIED BY 'danh123';
 
 -- 2 roles user for security
 
 DROP USER IF EXISTS 'regular'@'localhost';
-CREATE USER IF NOT EXISTS 'regular'@'locahost' IDENTIFIED BY 'regular123';
+CREATE USER IF NOT EXISTS 'regular'@'localhost' IDENTIFIED BY 'regular123';
 
 
 DROP USER IF EXISTS 'admin'@'localhost';
-CREATE USER IF NOT EXISTS 'admin'@'locahost' IDENTIFIED BY 'admin123';
+CREATE USER IF NOT EXISTS 'admin'@'localhost' IDENTIFIED BY 'admin123';
 
 
 
