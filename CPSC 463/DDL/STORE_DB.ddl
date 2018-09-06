@@ -118,6 +118,7 @@ CREATE TABLE INVOICE
 
 );
 
+GRANT SELECT, INSERT, DELETE, UPDATE ON STORE_SITE.* TO 'dbhost'@'localhost';
 GRANT SELECT, INSERT, DELETE, UPDATE ON STORE_SITE.* TO 'admin'@'localhost';
 
 GRANT SELECT ON STORE_SITE.* TO 'regular'@'localhost';
@@ -128,7 +129,7 @@ GRANT INSERT ON STORE_SITE.SUB_ITEMS TO 'regular'@'localhost';
 
 
 INSERT INTO USERS_ACCCOUNT VALUES
-(1,'DANH123', 'danhpham312@gmail.com', 'A'),
-(2,'DANH123','anthonyle63@csu.fullerton.edu','R'),
-(3,'DANH123','hecmed@csu.fullerton.edu','A'),
-(4,'DANH123' ,'allensarmiento@csu.fulleton.edu','R');
+(1,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi', 'danhpham312@gmail.com', 'A'),
+(2,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','anthonyle63@csu.fullerton.edu','R'),
+(3,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','hecmed@csu.fullerton.edu','A'),
+(4,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'allensarmiento@csu.fulleton.edu','R');
