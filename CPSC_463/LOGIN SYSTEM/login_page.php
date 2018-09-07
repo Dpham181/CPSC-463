@@ -63,11 +63,11 @@ $sql = "SELECT
     if($dbtype == 'A' ){
 
 
-      header("location:../admin/admin_page.html");
+      header("location:../admin/admin_page.php");
     }
     else if($dbtype == 'R'){
 
-      header("location:../user/regular_page.html");
+      header("location:../user/regular_page.php");
     }
   }
   else {
