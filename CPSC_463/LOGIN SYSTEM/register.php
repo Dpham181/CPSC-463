@@ -80,7 +80,7 @@ $state
 $stmt->execute();
 $stmt->close();
 $link->close();
-header("location:home.html");
+header("location:login_page.php");
 
 }
 

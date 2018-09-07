@@ -63,11 +63,11 @@ $sql = "SELECT
     if($dbtype == 'A' ){
 
 
-      header("location:admin_page.html");
+      header("location:../admin/admin_page.html");
     }
     else if($dbtype == 'R'){
 
-      header("location:regular_page.html");
+      header("location:../user/regular_page.html");
     }
   }
   else {
@@ -111,7 +111,7 @@ $sql = "SELECT
 
            <label for="inputPassword" class="sr-only">Password</label>
            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-           <span class="help-block"><?php echo $password_err; ?></span>
+           <span class="help-block" style="color:red"><?php echo $password_err; ?></span>
 
          </div>
            <div class="checkbox mb-3">
@@ -123,7 +123,7 @@ $sql = "SELECT
            <button type="reset" class="btn btn-lg btn-primary btn-block" >Reset</button>
 
            <p>Don't have an account? <a href="register_page.html">Sign up now</a>.</p>
-           <a href="forget_passform.php">Forgot password?</a>
+           <a href="forgot_pass.html">Forgot password?</a>
        </body>
    </body>
 
