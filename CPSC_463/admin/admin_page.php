@@ -26,22 +26,39 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
     <meta charset="utf-8">
     <title> Admin Site </title>
 
-    <button onclick="myFunction()">Add Titile</button>
+    <button onclick="TITILE()">Add Titile</button>
+    <button onclick="Test1()">Add Sub Item</button>
+
     <script>
-function myFunction() {
+function TITILE() {
     var x = document.getElementById("add_title");
+
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
         x.style.display = "none";
     }
+
+}
+function Test1() {
+    var y = document.getElementById("add_subitem");
+
+    if (y.style.display === "none") {
+        y.style.display = "block";
+    } else {
+        y.style.display = "none";
+    }
+
 }
 </script>
 
   </head>
   <body>
     <div id="add_title"style="display: none" >
-    <?php  require_once('add_titile.html'); ?>
+    <?php  require_once('add_title.html'); ?>
+    </div>
+    <div id="add_subitem"style="display: none" >
+    <?php  require_once('add_subitem.php'); ?>
     </div>
   </body>
 </html>
