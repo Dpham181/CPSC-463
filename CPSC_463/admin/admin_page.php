@@ -25,40 +25,43 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
   <head>
     <meta charset="utf-8">
     <title> Admin Site </title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <a href="#" id="additem">ADD ITEMS</a> |||
+    <a href="#" id="vieworder">VIEW ORDERS</a> |||
+    <a href="#" id="Update">UPDATE ITEMS</a>  |||
 
-    <button onclick="TITILE()">Add Titile</button>
-    <button onclick="Test1()">Add Sub Item</button>
-
-    <script>
-function TITILE() {
-    var x = document.getElementById("add_title");
-
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-
-}
-function Test1() {
-    var y = document.getElementById("add_subitem");
-
-    if (y.style.display === "none") {
-        y.style.display = "block";
-    } else {
-        y.style.display = "none";
-    }
-
-}
-</script>
 
   </head>
   <body>
-    <div id="add_title"style="display: none" >
-    <?php  require_once('add_title.html'); ?>
-    </div>
-    <div id="add_subitem"style="display: none" >
-    <?php  require_once('add_subitem.php'); ?>
-    </div>
+
+    <div id="title"></div>
+    <div id="sub_item"></div>
+    <div id="order"></div>
+    <div id="update"></div>
+
+    <script type="text/javascript">
+
+    $('#additem').on( 'click', function(){
+       $("#title").load("add_title.html");
+       $("#sub_item").load("add_subitem.php");
+
+       return false;
+    });
+
+    $('#vieworder').on('click', function(){
+       $("#order").load("view_order.php");
+
+       return false;
+    });
+
+    $('#Update').on('click', function(){
+       $("#update").load("choose_category.php");
+
+       return false;
+    });
+    </script>
   </body>
+
+
 </html>
