@@ -1,4 +1,4 @@
 <footer>
-  <p>&copy; CPSC 463 WEBSITE .<br />
+  <p>&copy; CPSC 463 WEBSITE .</p>
 
 </footer>

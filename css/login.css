@@ -8,13 +8,11 @@ width:100%;
 }
 
 body {
-background-color: gray;
-
+background-image:url('../img/board-background.jpg');
 height:100%;
 margin:0;
 padding:0;
 width:100%;
-
 }
 footer {
   background-color: #e8491d;
