@@ -92,11 +92,11 @@ $sql = "SELECT
 
 
      <title>COFFEE SHOP</title>
-
-
    </head>
+   <?php require_once('../header-footer/header.php'); ?>
 
        <body class="text-center">
+
          <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
            <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
            <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
@@ -123,8 +123,10 @@ $sql = "SELECT
            <p>Don't have an account? <a href="register_page.html">Sign up now</a>.</p>
            <a href="forgot_pass.html">Forgot password?</a>
          </form>
+
        </body>
 
+       <?php require_once('../header-footer/footer.php'); ?>
 
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

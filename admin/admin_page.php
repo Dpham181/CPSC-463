@@ -70,12 +70,13 @@ $stmt->bind_result($item_num,$title);
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
-                <li><a href='../LOGIN_SYSTEM/change-pass.php?email=<?php echo $_SESSION['email'] ?>'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span>Change Password</a></li>
+                <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change PassWord</a></li>
 
             </ul>
             <a href="#add" data-toggle="modal"><button type='button' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Item</button></a>
             <a href="#vieworder" data-toggle="modal"><button type='button' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span> View Ordering</button></a>
-            <a href="add_subitem.php"><button type='button' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-upload' aria-hidden='true'></span> Adding subitems </button></a>
+            <a href="#addsub"data-toggle="modal"><button type='button' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Adding subitems </button></a>
+
           </div>
   </div>
 
@@ -177,10 +178,236 @@ $stmt->bind_result($item_num,$title);
         </div>
     </div>
   </div>
+  <?php
+  $NEWPASS="";
+  $oldpassword="";
+  $oldpassword_err="";
+  $password_err="";
+  $confirm_password_err="";
+  if (isset($_POST["changepass"])){
+  $email = $_SESSION['email'];
+
+  if (!empty($_POST['oldpassword'])){
+        $oldpassword = secure($_POST['oldpassword']) ;
+
+        $sql= " SELECT USERS_ACCCOUNT.HASH_PASS
+                  FROM USERS_ACCCOUNT
+                  WHERE USERS_ACCCOUNT.EMAIL = ?";
+        $stmt1 = $link->prepare($sql);
+        $stmt1-> bind_param("s", $email);
+        if($stmt1->execute()){
+        $stmt1->store_result();
+        $stmt1->bind_result($hashed_password);
+              }
+  }
+  if ($stmt1->fetch() == 1){
+
+  if(password_verify($oldpassword,$hashed_password)){
+
+    $NEWPASS= secure($_POST['newpass']) ;
+    $confirmpass= secure($_POST['confirm_password']) ;
+
+    if ( $NEWPASS != $confirmpass){
+      echo "<script>window.alert('Password Not Match!');</script>";
 
 
+
+    }else{
+
+    $sql = " UPDATE USERS_ACCCOUNT  SET
+
+            USERS_ACCCOUNT.HASH_PASS = ?
+
+            WHERE USERS_ACCCOUNT.EMAIL = '$email'
+
+                              ";
+
+  $stmt = $link->prepare($sql);
+  $NEWPASS=PASSWORD_HASH($NEWPASS,PASSWORD_DEFAULT);
+  $stmt->bind_param('s', $NEWPASS);
+  if ($stmt->execute()){
+    $stmt->close();
+
+  }
+  else {echo "ERROR";}
+}
+}
+  else {
+    echo "<script>window.alert('Invalid Password');</script>";
+
+
+
+}
+  }
+}
+
+
+   ?>
+  <div id="changepass" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Change PassWord</h4>
+              </div>
+              <div class="modal-body">
+                  <form method="post" class="form-horizontal" role="form">
+                    <div class="input-group">
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                      <input type="password" name="oldpassword" class="form-control"  placeholder="old password" required>
+                      </div>
+
+                       <div class="input-group">
+                         <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                          <input type="password" name="newpass" class="form-control"  placeholder="New password" required>
+                        </div>
+
+                       <div class="input-group">
+
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                          <input type="password" name="confirm_password" class="form-control"  placeholder="confirmed password" required>
+                        </div>
+
+
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" name="changepass"><span class="glyphicon glyphicon-plus"></span> Change</button>
+                  <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</button>
+              </div>
+          </div>
+          </form>
+      </div>
+  </div>
+  </div>
+
+  <div id="addsub" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add Items</h4>
+              </div>
+              <div class="modal-body">
+                  <form method="post" class="form-horizontal" role="form">
+
+
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span>
+
+
+                        <select  name="Item_id" required>
+                                      <option value="" selected disabled hidden>Choose Category </option>
+                                    <?php
+                                    $sql = "SELECT
+                                            ITEMS.ITEM_NUM,
+                                            ITEMS.TITLE
+                                            FROM ITEMS
+                                                ";
+                                    $stmt=$link->prepare($sql);
+                                    $stmt -> execute();
+                                    $stmt->store_result();
+                                    $stmt->bind_result($item_num,$title);
+
+                                      while( $stmt->fetch() )
+                                      {
+                                        echo "<option value=\"$item_num\">".$title."</option>\n";
+                                      }
+                                      $stmt->free_result();
+                                      $stmt->close();
+                                    ?>
+
+                          </select>
+                        </span>
+
+
+
+                        <div class="input-group">
+
+                             <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                             <input type="Text" name="NAME" class="form-control" placeholder="NAME"  required />
+
+
+                             <div class="input-group">
+
+                             <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                             <input type="Text" name="BRAND" class="form-control" placeholder="BRAND" required />
+                           </div>
+
+                             <div class="input-group">
+
+                             <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                             <input type="Text" name="PRICE" class="form-control" placeholder="PRICE"  required />
+                           </div>
+
+
+                             <div class="input-group">
+
+                             <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                             <input type="Text" name="STATUS" class="form-control" placeholder="STATUS"  required />
+                           </div>
+
+                          <div class="input-group">
+                             <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                             <input type="Text" name="QUANITY" class="form-control" placeholder="QUANITY"  required />
+                           </div>
+
+
+
+
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" name="add_sub"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                  <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</button>
+              </div>
+                </form>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
 
   <?php
+  if (isset($_POST["add_sub"])){
+    if (!empty ($_POST["Item_id"] &&
+                  $_POST["BRAND"] &&
+                  $_POST["PRICE"] &&
+                  $_POST["NAME"] &&
+                  $_POST["STATUS"] &&
+                  $_POST["QUANITY"])
+        ){
+
+
+    $Item_id = secure($_POST["Item_id"]);
+    $BRAND = secure($_POST["BRAND"]);
+    $PRICE= secure($_POST["PRICE"]);
+    $NAME = secure($_POST["NAME"]);
+    $STATUS= secure($_POST["STATUS"]);
+    $QUANITY = secure($_POST["QUANITY"]);
+
+    $sql = "INSERT INTO SUB_ITEMS SET
+            SUB_ITEMS.ISI_NUM =?,
+            SUB_ITEMS.BRAND =?,
+            SUB_ITEMS.PRICE =?,
+            SUB_ITEMS.NAME =?,
+            SUB_ITEMS.STATUS =?,
+            SUB_ITEMS.QUANITY =?
+
+
+     ";
+
+    $stmt = $link->prepare($sql);
+    $stmt->bind_param("isissi",   $Item_id,
+                                  $BRAND,
+                                  $PRICE,
+                                  $NAME,
+                                  $STATUS,
+                                  $QUANITY );
+    if ($stmt->execute()){
+    $stmt->close();
+    echo("<meta http-equiv='refresh' content='1'>");
+
+  }
+
+  }
+}
   if (isset($_POST["add_title"])){
   $title = secure($_POST["item_name"]);
   $sql2 = "INSERT INTO ITEMS SET
