@@ -53,9 +53,9 @@ $stmt->bind_result($item_num,$title);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <link href="../css/a.css" rel="stylesheet">
 
 </head>
-<link href="../css/a.css" rel="stylesheet">
 
 <header>
 
@@ -95,21 +95,60 @@ $stmt->bind_result($item_num,$title);
       <th scope="col">STATUS</th>
       <th scope="col">QUANITY</th>
       <th scope="col">ACTION</th>
+      <th scope="col">
+        <form method="post" class="form-horizontal" role="form">
+          <div class="custom-select" style="width:140px;">
+
+        <select  name="subitems_id" required>
+                      <option  selected disabled hidden>Choose Category </option>
+                    <?php
+                    $sql = "SELECT
+                            ITEMS.ITEM_NUM,
+                            ITEMS.TITLE
+                            FROM ITEMS
+                                ";
+                    $stmt=$link->prepare($sql);
+                    $stmt -> execute();
+                    $stmt->store_result();
+                    $stmt->bind_result($item_num,$title);
+
+                      while( $stmt->fetch() )
+                      {
+                        echo "<option value=\"$item_num\">".$title."</option>\n";
+                      }
+                      $stmt->free_result();
+                      $stmt->close();
+                    ?>
+
+          </select>
+        </div>
+          <button type="submit" class="btn btn-primary" name="viewitems"><span class="glyphicon glyphicon-plus"></span> generate</button>
+
+        </form>
+        </th>
 
     </tr>
   </thead>
   <tbody>
     <?php
-      $sql = "SELECT *
+    if (isset($_POST["viewitems"])){
+
+      $item_id = $_POST["subitems_id"];
+      $sql = "SELECT
+              SUB_ITEMS.SI_NUM,
+              SUB_ITEMS.BRAND,
+              SUB_ITEMS.PRICE,
+              SUB_ITEMS.NAME,
+              SUB_ITEMS.STATUS,
+              SUB_ITEMS.QUANITY
               FROM SUB_ITEMS
-              ORDER BY SUB_ITEMS.ISI_NUM
+              WHERE SUB_ITEMS.ISI_NUM = '$item_id'
                   ";
       $stmt1=$link->prepare($sql);
       $stmt1-> execute();
       $stmt1->store_result();
       $stmt1->bind_result(
                                    $SI_NUM,
-                                   $ISI_NUM,
                                      $BRAND,
                                     $PRICE,
                                     $NAME,
@@ -145,6 +184,7 @@ $stmt->bind_result($item_num,$title);
 }
     $stmt1->data_seek(0);
     $stmt1->close();
+  }
 ?>
 
 

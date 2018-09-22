@@ -125,6 +125,8 @@ GRANT SELECT, INSERT, DELETE, UPDATE ON STORE_SITE.* TO 'admin'@'localhost';
 
 GRANT SELECT ON STORE_SITE.* TO 'regular'@'localhost';
 GRANT UPDATE ON STORE_SITE.PROFILE TO 'regular'@'localhost';
+GRANT UPDATE ON STORE_SITE.USERS_ACCCOUNT TO 'regular'@'localhost';
+
 GRANT INSERT ON STORE_SITE.ITEMS TO 'regular'@'localhost';
 GRANT INSERT ON STORE_SITE.SUB_ITEMS TO 'regular'@'localhost';
 
