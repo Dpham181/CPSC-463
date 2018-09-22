@@ -1,9 +1,7 @@
 header {
-  border-bottom:#e8491d 3px solid;
-  background:#35424a;
-  font: 15px/1.5 Arial, Helvetica,sans-serif;
-
-background-color: #e8491d;
+border-bottom:#e8491d 3px solid;
+background:#35424a;
+font: 15px/1.5 Arial, Helvetica,sans-serif;
 height: 100px;
 top:0;
 width:100%;
@@ -12,7 +10,7 @@ width:100%;
 }
 
 body {
-background-color: gray;
+background-color: black;
 height:100%;
 margin:0;
 padding:0;

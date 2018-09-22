@@ -8,7 +8,6 @@ $pass =   secure($_POST["password"]);
 $firstname = secure($_POST["FIRST_NAME"]);
 $lastname = secure($_POST["LAST_NAME"]);
 $street = secure($_POST["street"]);
-$street = secure($_POST["street2"]);
 $zipcode = secure($_POST["zipcode"]);
 $state = secure($_POST["state"]);
 $city  = secure($_POST["city"]);

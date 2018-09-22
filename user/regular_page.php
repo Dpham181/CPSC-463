@@ -150,6 +150,12 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
                              <input type="password" name="newpass" class="form-control"  placeholder="New password" required>
                            </div>
 
+                        <div class="input-group">
+
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-scale"></span></span>
+                      <input type="password" name="confirm_password" class="form-control"  placeholder="confirmed password" required>
+                        </div>
+
 
                  <div class="modal-footer">
                      <button type="submit" class="btn btn-primary" name="changepass"><span class="glyphicon glyphicon-Edit"></span> Change</button>
@@ -167,6 +173,72 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 <!-- ________________________________________________________Start of profile change form_____________________________________________________ -->
 
 
+<?php
+$id = $_SESSION['id'];
+$sql = " SELECT
+          PROFILE.FIRST_NAME,
+          PROFILE.LAST_NAME,
+          PROFILE.COUNTRY,
+          PROFILE.ZIPCODE,
+          PROFILE.CITY,
+          PROFILE.STREET,
+          PROFILE.STATE
+          FROM PROFILE
+          WHERE PROFILE.AUSER_ID = ?
+";
+$stmt = $link->prepare($sql);
+$stmt ->bind_param("i", $_SESSION['id']);
+$stmt->execute();
+$stmt->store_result();
+$stmt -> bind_result(
+$firstname,
+$lastname,
+$country,
+$zipcode,
+$city,
+$street,
+$state
+);
+$stmt->fetch();
+$stmt->close();
+if (isset($_POST["editprofile"])){
+
+  $firstname = secure($_POST["FIRST_NAME"]);
+  $lastname = secure($_POST["LAST_NAME"]);
+  $street = secure($_POST["street"]);
+  $zipcode = secure($_POST["zipcode"]);
+  $state = secure($_POST["state"]);
+  $city  = secure($_POST["city"]);
+  $country = secure($_POST["country"]);
+$sql = " UPDATE PROFILE SET
+          PROFILE.FIRST_NAME =? ,
+          PROFILE.LAST_NAME =? ,
+          PROFILE.COUNTRY =? ,
+          PROFILE.ZIPCODE =? ,
+          PROFILE.CITY =? ,
+          PROFILE.STREET =? ,
+          PROFILE.STATE =?
+          WHERE PROFILE.AUSER_ID ='$id'
+
+
+";
+$stmt = $link->prepare($sql);
+$stmt -> bind_param("sssisss",
+$firstname,
+$lastname,
+$country,
+$zipcode,
+$city,
+$street,
+$state
+);
+$stmt->execute();
+$stmt->close();
+
+}
+
+ ?>
+
 <div id="profile" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -176,7 +248,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
             <div class="modal-body">
 
 
-              <div class="container">
+  <div class="container">
     <h1>Edit Profile</h1>
   	<hr>
 	<div class="row">
@@ -195,33 +267,33 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Jane">
+              <input class="form-control" name="FIRST_NAME" type="text" value="<?php echo $firstname ?>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Bishop">
+              <input class="form-control"  name="LAST_NAME" type="text" value="<?php echo $lastname ?>">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Address:</label>
+            <label class="col-lg-3 control-label">Street:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
+              <input class="form-control" name="street" type="text" value="<?php echo $street ?>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">City:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
+              <input class="form-control" name ="city"  type="text" value="<?php echo $city ?>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">State:</label>
             <div class="col-lg-8">
               <div class="ui-select">
-                <select id="inputState" name="state" class="form-control">
-                  <option selected>Choose...</option>
+                <select  name="state" class="form-control">
+                  <option selected><?php echo $state ?></option>
                   <option>CA</option>
                   <option>WA</option>
                   <option>OR</option>
@@ -236,8 +308,8 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
             <label class="col-lg-3 control-label">Country:</label>
             <div class="col-lg-8">
               <div class="ui-select">
-                <select id="inputCounty" name="country" class="form-control">
-                  <option selected>Choose...</option>
+                <select  name="country" class="form-control">
+                  <option selected><?php echo $country ?></option>
             <option >Bolivia, Plurinational State of</option>
           	<option >Bonaire, Sint Eustatius and Saba</option>
           	<option >Bosnia and Herzegovina</option>
@@ -265,7 +337,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
           <div class="form-group">
             <label class="col-md-3 control-label">ZipCode:</label>
             <div class="col-md-8">
-              <input type="text" name ="zipcode" class="form-control" id="inputZip">
+              <input type="text" name ="zipcode" value="<?php echo $zipcode ?>" class="form-control" id="inputZip">
             </div>
           </div>
 
