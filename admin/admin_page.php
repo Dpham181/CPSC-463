@@ -131,6 +131,7 @@ $stmt->bind_result($item_num,$title);
   </thead>
   <tbody>
     <?php
+    $count = 1;
     if (isset($_POST["viewitems"])){
 
       $item_id = $_POST["subitems_id"];
@@ -170,7 +171,7 @@ $stmt->bind_result($item_num,$title);
       while($stmt1->fetch())
       {
       echo "<tr>";
-      echo "<th scope=\"row\">".$SI_NUM."</th>\n";
+      echo "<th scope=\"row\">".$count++."</th>\n";
       echo "<td>".$NAME."</td>\n";
       echo "<td>".$BRAND."</td>\n";
       echo "<td>".$PRICE."</td>\n";
