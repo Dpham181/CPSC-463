@@ -125,8 +125,6 @@ GRANT SELECT, INSERT, DELETE, UPDATE ON STORE_SITE.* TO 'admin'@'localhost';
 
 GRANT SELECT ON STORE_SITE.* TO 'regular'@'localhost';
 GRANT UPDATE ON STORE_SITE.PROFILE TO 'regular'@'localhost';
-GRANT UPDATE ON STORE_SITE.USERS_ACCCOUNT TO 'regular'@'localhost';
-
 GRANT INSERT ON STORE_SITE.ITEMS TO 'regular'@'localhost';
 GRANT INSERT ON STORE_SITE.SUB_ITEMS TO 'regular'@'localhost';
 
@@ -137,3 +135,9 @@ INSERT INTO USERS_ACCCOUNT VALUES
 (2,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','anthonyle63@csu.fullerton.edu',CURRENT_TIMESTAMP,'R'),
 (3,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','hecmed@csu.fullerton.edu',CURRENT_TIMESTAMP,'A'),
 (4,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'allensarmiento@csu.fulleton.edu',CURRENT_TIMESTAMP,'R');
+
+INSERT INTO ITEMS VALUES
+(1,1,'TEST');
+INSERT INTO SUB_ITEMS VALUES
+(1,1,'BOBA',100, 'TEST','VAB',100);
+
