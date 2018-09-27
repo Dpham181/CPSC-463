@@ -50,7 +50,15 @@ $stmt->fetch();
 $stmt->free_result();
 $stmt->close();
 
+// INSERT INTO CUSTOMER table
+$sql= "INSERT INTO CUSTOMER SET
+        CUSTOMER.R_ID = ?";
+$stmt = $link->prepare($sql);
 
+$stmt ->bind_param("s", $pid);
+$stmt ->execute();
+
+$stmt->close();
 // register to profile implement here doing later
 $sql = " INSERT INTO PROFILE SET
           PROFILE.AUSER_ID =? ,
