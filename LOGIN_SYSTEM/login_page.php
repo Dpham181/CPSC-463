@@ -1,7 +1,7 @@
 <?php
 
 require_once 'secure_data.php';
-require_once ('../HOST/configHT.php');
+require_once ('../HOST/configAD.php');
 
 $email = $password = "";
 $email_err = $password_err = "";
