@@ -1,5 +1,5 @@
 <?php
-require_once ('../HOST/configHT.php');
+require_once ('../HOST/configAD.php');
 require_once 'secure_data.php';
 
 if(!empty($_POST["email"])){
