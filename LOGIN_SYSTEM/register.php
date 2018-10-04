@@ -1,6 +1,6 @@
 <?php
 require_once 'secure_data.php';
-require_once ('../HOST/configHT.php');
+require_once ('../HOST/configAD.php');
 $email = $pass = $firstname = $lastname =$street = $street2 = $zipcode = $state = $city = null;
 
 $email = secure($_POST["email"]);

@@ -37,13 +37,9 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link href="../css/u.css" rel="stylesheet">
-
   </head>
-
   <header>
-
       <img src="../img/logo.png" width="10%" height="90%">
-
       <div   class="flex-container">
           <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> <?php echo $_SESSION['email'] . " ($session_role)"; ?>
@@ -52,16 +48,25 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
                   <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
                   <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change PassWord</a></li>
                   <li><a href="#profile" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Update Profile</a></li>
-
               </ul>
-
             </div>
           </div>
-
   </header>
-
-
    <body>
+
+     <div class="row">
+       <div class="col-md-4">
+         <p>HERESSOME STUFF</p>
+       </div>
+       <div class="col-md-4">
+         <p>HERESSOME STUFF</p>
+       </div>
+       <div class="col-md-4">
+         <p>HERESSOME STUFF</p>
+       </div>
+     </div>
+
+
 
 
      <!-- ________________________________________________________Start of Password change form -->
@@ -356,9 +361,6 @@ $stmt->close();
     </div>
 </div>
 </div>
-
-
-
 <!-- ________________________________________________________End of profile change form_____________________________________________________ -->
 
 
