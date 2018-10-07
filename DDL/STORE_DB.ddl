@@ -128,7 +128,7 @@ INSERT INTO USERS_ACCCOUNT VALUES
 (1,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi', 'danhpham312@gmail.com',CURRENT_TIMESTAMP, 'A'),
 (2,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','anthonyle63@csu.fullerton.edu',CURRENT_TIMESTAMP,'R'),
 (3,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','hecmed@csu.fullerton.edu',CURRENT_TIMESTAMP,'A'),
-(4,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'allensarmiento@csu.fulleton.edu',CURRENT_TIMESTAMP,'R');
+(4,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'allensarmiento@csu.fullerton.edu',CURRENT_TIMESTAMP,'R');
 
 
 -- CUSTOMER
