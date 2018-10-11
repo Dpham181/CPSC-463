@@ -42,7 +42,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 
   <header>
 
-      <img src="../img/logo.png" width="10%" height="90%">
+      <a href="../home.html"><img src="../img/logo.png" width="10%" height="90%"></a>
 
       <div   class="flex-container">
           <div class="dropdown">
@@ -62,8 +62,8 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 
 
    <body>
-
-
+     <!-- displaying items to the regular user -->
+     <?php include 'regular_display.php'; ?>
      <!-- ________________________________________________________Start of Password change form -->
      <?php
      $NEWPASS="";
