@@ -15,6 +15,7 @@ padding:0;
 width:100%;
 
 }
+
 footer {
   background:#35424a;
   font: 15px/1.5 Arial, Helvetica,sans-serif;
@@ -28,9 +29,21 @@ footer {
 
   width:100%;
 }
+
 .flex-container {
   align-items: flex-end;
   display: flex;
   height: 20px;
   justify-content: flex-start;
+}
+
+#topImage {
+  width:10px;
+  height:60%;
+  margin: auto;
+  filter: grayscale(100%);
+}
+
+.cImage {
+
 }
