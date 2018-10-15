@@ -1,6 +1,8 @@
 <!-- 
   This page is the home page of the admin panel.
   This page represents the Dashboard button.
+
+  The update profile needs to update the database before admins can view the users
 -->
 
 
@@ -137,12 +139,12 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">CUSTOMER</th>
-      <th scope="col">NAME</th>
+      <th scope="col">FIRST NAME</th>
+      <th scope="col">LAST NAME</th>
+      <th scope="col">ITEM NAME</th>
       <th scope="col">BRAND</th>
       <th scope="col">DESCRIPTION</th>
       <th scope="col">REVIEWS</th>
-      <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -150,32 +152,26 @@
 
   <!-- Table body -->
   <!-- This needs to be changed for the sharing page -->
+  <!-- This is not working, because when you update your profile, the database doesn't get updated -->
   <tbody>
     <?php
-      $count = 1;
 
-      if (isset($_POST["viewitems"])){
-        $item_id = $_POST["subitems_id"];
+      if (isset($_POST["viewusers"])){
+        $user = $_POST["user"];
         $sql = "SELECT
-                SUB_ITEMS.SI_NUM,
-                SUB_ITEMS.BRAND,
-                SUB_ITEMS.PRICE,
-                SUB_ITEMS.NAME,
-                SUB_ITEMS.STATUS,
-                SUB_ITEMS.QUANITY
-                FROM SUB_ITEMS
-                WHERE SUB_ITEMS.ISI_NUM = '$item_id' ";
+                PROFILE.PROFILE_ID,
+                PROFILE.FIRST_NAME,
+                PROFILE.LAST_NAME
+                FROM PROFILE
+                WHERE PFOFILE.PROFILE_ID = 'user' ";
 
         $stmt1=$link->prepare($sql);
         $stmt1-> execute();
         $stmt1->store_result();
         $stmt1->bind_result(
-                              $SI_NUM,
-                              $BRAND,
-                              $PRICE,
-                              $NAME,
-                              $STATUS,
-                              $QUANITY 
+                              $PROFILE_ID,
+                              $FIRST_NAME,
+                              $LAST_NAME
                            );
 
         $NONE= "Empty";
@@ -192,23 +188,23 @@
           while($stmt1->fetch())
           {
             echo "<tr>";
-            echo "<th scope=\"row\">".$count++."</th>\n"; // Because we are having a count at 1, it will not match the SI_NUM if we delete an item
-            echo "<td>".$NAME."</td>\n";
-            echo "<td>".$BRAND."</td>\n";
-            echo "<td>".$PRICE."</td>\n";
-            echo "<td>".$STATUS."</td>\n";
-            echo "<td>".$QUANITY."</td>\n";
+            echo "<td>".$PROFILE_ID."</td>\n";
+            echo "<td>".$FIRST_NAME."</td>\n";
+            echo "<td>".$LAST_NAME."</td>\n";
+            echo "<td>"."</td>\n";
+            echo "<td>"."</td>\n";
+            echo "<td>"."</td>\n";
             echo "<td>";
 
             // Button to remove an item
-            echo "<a href='choose_remove.php?id=" . $SI_NUM . "'>
+            echo "<a href='choose_remove.php?id=" . $PROFILE_ID . "'>
                     <button type='button' class='btn btn-danger btn-sm'>
                       <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
                     </button>
                   </a> ";
             
             // This will go to a new page
-            echo "<a href='update_item.php?id=" . $SI_NUM . "'>
+            echo "<a href='update_item.php?id=" . $PROFILE_ID. "'>
                     <button type='button' class='btn btn-warning btn-sm'>
                       <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
                     </button> 
