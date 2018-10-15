@@ -1,8 +1,8 @@
 <!-- 
-  This file is created to control what things will be shared.
-  
-  There is a problem the view ordering being displayed when it should not be.
+  This page is the home page of the admin panel.
+  This page represents the Dashboard button.
 -->
+
 
 <!-- PHP Code to load the database -->
 <?php
@@ -74,84 +74,160 @@
     <img src="../img/logo.png" width="10%" height="60%">
 
     <div class="flex-container">
-      <!-- Menu dropdown -->
-      <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">
-            <span class='glyphicon glyphicon-user' aria-hidden='true'></span> 
-            <?php echo $_SESSION['email'] . " ($session_role)"; ?>
-            <span class="caret"></span>
-          </button>
-          <!-- Menu dropdown for email -->
-          <ul class="dropdown-menu">
-            <li>
-              <a href="../LOGIN_SYSTEM/logout.php">
-                <span class='glyphicon-log-out' aria-hidden='true'></span>Logout
-              </a>
-            </li>
-            <li>
-              <a href="#changepass" data-toggle="modal">
-                <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>Change Password
-              </a>
-            </li>
-          </ul>
-          <!-- End of menu dropdown -->
+        <div class="dropdown">
+            <!-- Menu dropdown -->
+            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">
+              <span class='glyphicon glyphicon-user' aria-hidden='true'></span> 
+              <?php echo $_SESSION['email'] . " ($session_role)"; ?>
+              <span class="caret"></span>
+            </button>
+            <!-- Menu dropdown for email -->
+            <ul class="dropdown-menu">
+                <li>
+                  <a href="../LOGIN_SYSTEM/logout.php">
+                    <span class='glyphicon-log-out' aria-hidden='true'></span>Logout
+                  </a>
+                </li>
+                <li>
+                  <a href="#changepass" data-toggle="modal">
+                    <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>Change Password
+                  </a>
+                </li>
+            </ul>
+            <!-- End of menu dropdown -->
 
-          <!-- Other buttons on the top bar -->
-          <a href="admin_page.php">
-            <button type="button" class="btn btn-success btn-sm">
-              <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard
-            </button>
-          </a>
-           <a href="#">
-            <button type="button" class="btn btn-success btn-sm">
-              <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>Sharing
-            </button>
-          </a>
-          <a href="#add" data-toggle="modal">
-            <button type='button' class='btn btn-success btn-sm'>
-              <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Item
-            </button>
-          </a>
-          <a href="#vieworder" data-toggle="modal">
-            <button type='button' class='btn btn-success btn-sm'>
-              <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>View Ordering
-            </button>
-          </a>
-          <a href="#addsub" data-toggle="modal">
-            <button type='button' class='btn btn-success btn-sm'>
-              <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Adding subitems
-            </button>
-          </a>
-          <!-- End of other buttons -->
-      </div>
-      <!-- End of class dropdown -->
-    </div>
-    
+            <!-- Other buttons on the top bar -->
+            <a href="admin_page.php">
+              <button type="button" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard</button>
+            </a>
+            <a href="#">
+              <button type="button" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>Sharing</button>
+            </a>
+            <a href="#add" data-toggle="modal">
+              <button type='button' class='btn btn-success btn-sm'>
+                <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Item
+              </button>
+            </a>
+            <a href="#vieworder" data-toggle="modal">
+              <button type='button' class='btn btn-success btn-sm'>
+                <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>View Ordering
+              </button>
+            </a>
+            <a href="#addsub" data-toggle="modal">
+              <button type='button' class='btn btn-success btn-sm'>
+                <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Adding subitems
+              </button>
+            </a>
+            <!-- End of other buttons -->
+        </div>
+        <!-- End of class dropdown -->
+  </div>
 
 </header>
 <!-- End of header field -->
 
 <body>
 
+<!-- This will produce a dark table -->
 <table class="table table-hover table-dark">
-<!-- Table header -->
-<thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">CUSTOMER</th>
-    <th scope="col">NAME</th>
-    <th scope="col">BRAND</th>
-    <th scope="col">DESCRIPTION</th>
-    <th scope="col">REVIEWS</th>
-    <th scope="col"></th>
-  </tr>
-</thead>
+
+  <!-- Table header -->
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">CUSTOMER</th>
+      <th scope="col">NAME</th>
+      <th scope="col">BRAND</th>
+      <th scope="col">DESCRIPTION</th>
+      <th scope="col">REVIEWS</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <!-- End of table header -->
+
+  <!-- Table body -->
+  <!-- This needs to be changed for the sharing page -->
+  <tbody>
+    <?php
+      $count = 1;
+
+      if (isset($_POST["viewitems"])){
+        $item_id = $_POST["subitems_id"];
+        $sql = "SELECT
+                SUB_ITEMS.SI_NUM,
+                SUB_ITEMS.BRAND,
+                SUB_ITEMS.PRICE,
+                SUB_ITEMS.NAME,
+                SUB_ITEMS.STATUS,
+                SUB_ITEMS.QUANITY
+                FROM SUB_ITEMS
+                WHERE SUB_ITEMS.ISI_NUM = '$item_id' ";
+
+        $stmt1=$link->prepare($sql);
+        $stmt1-> execute();
+        $stmt1->store_result();
+        $stmt1->bind_result(
+                              $SI_NUM,
+                              $BRAND,
+                              $PRICE,
+                              $NAME,
+                              $STATUS,
+                              $QUANITY 
+                           );
+
+        $NONE= "Empty";
+
+        if ($stmt1->num_rows == 0){
+          echo "<tr>";
+          echo "<th scope=\"row\">".""."</th>\n";
+          echo "<td>".$NONE."</td>\n";
+          echo "<td>".$NONE."</td>\n";
+          echo "<td>".$NONE."</td>\n";
+          echo "<td>".$NONE."</td>\n";
+          echo "<td>".$NONE."</td>\n";
+        } else{
+          while($stmt1->fetch())
+          {
+            echo "<tr>";
+            echo "<th scope=\"row\">".$count++."</th>\n"; // Because we are having a count at 1, it will not match the SI_NUM if we delete an item
+            echo "<td>".$NAME."</td>\n";
+            echo "<td>".$BRAND."</td>\n";
+            echo "<td>".$PRICE."</td>\n";
+            echo "<td>".$STATUS."</td>\n";
+            echo "<td>".$QUANITY."</td>\n";
+            echo "<td>";
+
+            // Button to remove an item
+            echo "<a href='choose_remove.php?id=" . $SI_NUM . "'>
+                    <button type='button' class='btn btn-danger btn-sm'>
+                      <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+                    </button>
+                  </a> ";
+            
+            // This will go to a new page
+            echo "<a href='update_item.php?id=" . $SI_NUM . "'>
+                    <button type='button' class='btn btn-warning btn-sm'>
+                      <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
+                    </button> 
+                  </a>";
+          }
+        }
+
+        $stmt1->data_seek(0);
+        $stmt1->close();
+      }
+    ?>
+
+  </tbody>
+  <!-- End of table body -->
+</table>
 
 <!-- Sharing -->
-<h2 style="text-align:center">Sharing</h2>
-<!-- Add orders and user's names here -->
+<!-- Want to have an option to select which users will be shared -->
 
-<!-- End of sharing -->
 
 <!-- Adding Title -->
 <div id="add" class="modal fade" role="dialog">
@@ -160,15 +236,15 @@
       <div class="modal-header">
         <h4 class="modal-title">Add Title</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div> <!-- End modal-header -->
+      </div>
       <div class="modal-body">
         <form method="post" class="form-horizontal" role="form">
           <div class="form-group">
             <label class="control-label col-sm-2" for="item_name">Item Name:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Item Name" autofocus required>
-            </div> <!-- End col-sm-4 -->
-          </div> <!-- End form-group -->
+            </div>
+          </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" name="add_title">
               <span class="glyphicon glyphicon-plus"></span>Add
@@ -176,24 +252,24 @@
             <button type="button" class="btn btn-warning" data-dismiss="modal">
               <span class="glyphicon glyphicon-remove-circle"></span>Cancel
             </button>
-          </div> <!-- End modal-footer -->
-        </form> <!-- End form-horizontal -->
-      </div> <!-- End modal-body -->
-    </div> <!-- End modal-content -->
-  </div> <!-- End modal-dialog modal-lg -->
-</div> <!-- End adding title -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- PHP segment for changing the password -->
-<?php
+  <!-- PHP segment for changing the password -->
+  <?php
 
-  $NEWPASS="";
-  $oldpassword="";
-  $oldpassword_err="";
-  $password_err="";
-  $confirm_password_err="";
+    $NEWPASS="";
+    $oldpassword="";
+    $oldpassword_err="";
+    $password_err="";
+    $confirm_password_err="";
 
-  if (isset($_POST["changepass"])){
-    $email = $_SESSION['email'];
+    if (isset($_POST["changepass"])){
+      $email = $_SESSION['email'];
 
     if (!empty($_POST['oldpassword'])){
       $oldpassword = secure($_POST['oldpassword']) ;
@@ -220,8 +296,8 @@
           echo "<script>window.alert('Password Not Match!');</script>";
         } else{
           $sql = " UPDATE USERS_ACCCOUNT  SET
-                    USERS_ACCCOUNT.HASH_PASS = ?
-                    WHERE USERS_ACCCOUNT.EMAIL = '$email' ";
+                   USERS_ACCCOUNT.HASH_PASS = ?
+                   WHERE USERS_ACCCOUNT.EMAIL = '$email' ";
 
           $stmt = $link->prepare($sql);
           $NEWPASS=PASSWORD_HASH($NEWPASS,PASSWORD_DEFAULT);
@@ -281,7 +357,7 @@
   <!-- End of user changing password -->
 
 
-  <!-- Add sub items -->
+  <!-- Add items -->
   <div id="addsub" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
