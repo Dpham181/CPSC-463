@@ -93,7 +93,7 @@ CREATE TABLE SUB_ITEMS
   PRICE INT(10) UNSIGNED DEFAULT 0,
   NAME VARCHAR(10),
   STATUS VARCHAR(100),
-  QUANITY INT(10) UNSIGNED DEFAULT 0,
+  QUANTITY INT(10) UNSIGNED DEFAULT 0,
 
   CONSTRAINT FOREIGN KEY (ISI_NUM) REFERENCES ITEMS(ITEM_NUM)
 
@@ -103,7 +103,7 @@ CREATE TABLE INVOICE
   INVOICE_ID INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   ITEMS_ID INT(10) UNSIGNED NOT NULL,
   OR_ID INT (10) UNSIGNED NOT NULL,
-  QUANITY INT(250) UNSIGNED DEFAULT 0,
+  QUANTITY INT(250) UNSIGNED DEFAULT 0,
   PRICE INT (10) UNSIGNED DEFAULT 0,
   CUS_INFO VARCHAR(250),
   TOTAL INT(10) UNSIGNED DEFAULT 0,
@@ -142,8 +142,22 @@ INSERT INTO ORDERING VALUES
 (1, 1,'Sure', CURRENT_TIMESTAMP);
 
 INSERT INTO ITEMS VALUES
-(1, 1,'BOBALICIOUS');
+(1, 1,'CoffeeHut'),
+(2, 1,'MojoJojo');
 
+
+-- SI_NUM (increase by 1)
+-- ISI_NUM (product company id)
+-- BRAND (name of product)
+-- PRICE (price of product)
+-- NAME (??? redundant?)
+-- STATUS (Available/NotAvailable)
+-- QUANTITY (0-10)
 INSERT INTO SUB_ITEMS VALUES
-(1,1, 'BOBA', 10, 'test', 'AVA', 10),
-(2,1, 'SUPERBOBA', 12, 'sure', 'AVA', 10);
+(1,1, 'Toffee Coffee', 10, '...', 'available', 10),
+(2,1, 'Hazlenut Haze', 11, '...', 'available', 5),
+(3,1, 'Coconut Coco', 12, '...', 'available', 4),
+(4,1, 'Caramel Cafe', 7, '...', 'available', 10),
+(5,1, 'Honey Cup', 8, '...', 'available', 8),
+(6,1, 'Pumpkin Latte', 12, '...', 'available', 6),
+(7,2, 'Brazilian Coffee', 6, '...', 'available', 7);

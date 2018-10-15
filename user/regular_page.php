@@ -370,5 +370,5 @@ $stmt->close();
     <p>&copy; CPSC 463 WEBSITE .</p>
 
   </footer>
-
+  <script src="../js/cart.js"></script>
 </html>
