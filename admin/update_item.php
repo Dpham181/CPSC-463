@@ -1,7 +1,5 @@
-<!-- TO DO
-
-  Find how the drop down menu works for the email
-  
+<!-- 
+  This file is used to make changes to sub items.
 -->
 <!-- PHP Code to load the database -->
 <?php

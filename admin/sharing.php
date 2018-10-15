@@ -1,5 +1,7 @@
-<!-- TO DO 
-  Work on the update_item portion. It is currently not updating. May need to compare with previous code
+<!-- 
+  This file is created to control what things will be shared.
+  
+  There is a problem the view ordering being displayed when it should not be.
 -->
 
 <!-- PHP Code to load the database -->
@@ -72,57 +74,59 @@
     <img src="../img/logo.png" width="10%" height="60%">
 
     <div class="flex-container">
-        <div class="dropdown">
-            <!-- Menu dropdown -->
-            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">
-              <span class='glyphicon glyphicon-user' aria-hidden='true'></span> 
-              <?php echo $_SESSION['email'] . " ($session_role)"; ?>
-              <span class="caret"></span>
+      <!-- Menu dropdown -->
+      <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">
+            <span class='glyphicon glyphicon-user' aria-hidden='true'></span> 
+            <?php echo $_SESSION['email'] . " ($session_role)"; ?>
+            <span class="caret"></span>
+          </button>
+          <!-- Menu dropdown for email -->
+          <ul class="dropdown-menu">
+            <li>
+              <a href="../LOGIN_SYSTEM/logout.php">
+                <span class='glyphicon-log-out' aria-hidden='true'></span>Logout
+              </a>
+            </li>
+            <li>
+              <a href="#changepass" data-toggle="modal">
+                <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>Change Password
+              </a>
+            </li>
+          </ul>
+          <!-- End of menu dropdown -->
+
+          <!-- Other buttons on the top bar -->
+          <a href="admin_page.php">
+            <button type="button" class="btn btn-success btn-sm">
+              <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard
             </button>
-            <!-- Menu dropdown for email -->
-            <ul class="dropdown-menu">
-                <li>
-                  <a href="../LOGIN_SYSTEM/logout.php">
-                    <span class='glyphicon-log-out' aria-hidden='true'></span>Logout
-                  </a>
-                </li>
-                <li>
-                  <a href="#changepass" data-toggle="modal">
-                    <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>Change Password
-                  </a>
-                </li>
-            </ul>
-            <!-- End of menu dropdown -->
-
-            <!-- Other buttons on the top bar -->
-            <a href="admin_page.php">
-              <button type="button" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard</button>
-            </a>
-            <a href="#" data-toggle="modal">
-              <button type="button" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>Sharing</button>
-            </a>
-            <a href="#add" data-toggle="modal">
-              <button type='button' class='btn btn-success btn-sm'>
-                <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Item
-              </button>
-            </a>
-
-            <a href="#vieworder" data-toggle="modal">
-              <button type='button' class='btn btn-success btn-sm'>
-                <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>View Ordering
-              </button>
-            </a>
-            <a href="#addsub" data-toggle="modal">
-              <button type='button' class='btn btn-success btn-sm'>
-                <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Adding subitems
-              </button>
-            </a>
-            <!-- End of other buttons -->
-        </div>
-        <!-- End of class dropdown -->
-  </div>
+          </a>
+           <a href="#">
+            <button type="button" class="btn btn-success btn-sm">
+              <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>Sharing
+            </button>
+          </a>
+          <a href="#add" data-toggle="modal">
+            <button type='button' class='btn btn-success btn-sm'>
+              <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Item
+            </button>
+          </a>
+          <a href="#vieworder" data-toggle="modal">
+            <button type='button' class='btn btn-success btn-sm'>
+              <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>View Ordering
+            </button>
+          </a>
+          <a href="#addsub" data-toggle="modal">
+            <button type='button' class='btn btn-success btn-sm'>
+              <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Adding subitems
+            </button>
+          </a>
+          <!-- End of other buttons -->
+      </div>
+      <!-- End of class dropdown -->
+    </div>
+    
 
 </header>
 <!-- End of header field -->
@@ -156,15 +160,15 @@
       <div class="modal-header">
         <h4 class="modal-title">Add Title</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+      </div> <!-- End modal-header -->
       <div class="modal-body">
         <form method="post" class="form-horizontal" role="form">
           <div class="form-group">
             <label class="control-label col-sm-2" for="item_name">Item Name:</label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Item Name" autofocus required>
-            </div>
-          </div>
+            </div> <!-- End col-sm-4 -->
+          </div> <!-- End form-group -->
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" name="add_title">
               <span class="glyphicon glyphicon-plus"></span>Add
@@ -172,24 +176,24 @@
             <button type="button" class="btn btn-warning" data-dismiss="modal">
               <span class="glyphicon glyphicon-remove-circle"></span>Cancel
             </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+          </div> <!-- End modal-footer -->
+        </form> <!-- End form-horizontal -->
+      </div> <!-- End modal-body -->
+    </div> <!-- End modal-content -->
+  </div> <!-- End modal-dialog modal-lg -->
+</div> <!-- End adding title -->
 
-  <!-- PHP segment for changing the password -->
-  <?php
+<!-- PHP segment for changing the password -->
+<?php
 
-    $NEWPASS="";
-    $oldpassword="";
-    $oldpassword_err="";
-    $password_err="";
-    $confirm_password_err="";
+  $NEWPASS="";
+  $oldpassword="";
+  $oldpassword_err="";
+  $password_err="";
+  $confirm_password_err="";
 
-    if (isset($_POST["changepass"])){
-      $email = $_SESSION['email'];
+  if (isset($_POST["changepass"])){
+    $email = $_SESSION['email'];
 
     if (!empty($_POST['oldpassword'])){
       $oldpassword = secure($_POST['oldpassword']) ;
@@ -216,8 +220,8 @@
           echo "<script>window.alert('Password Not Match!');</script>";
         } else{
           $sql = " UPDATE USERS_ACCCOUNT  SET
-                   USERS_ACCCOUNT.HASH_PASS = ?
-                   WHERE USERS_ACCCOUNT.EMAIL = '$email' ";
+                    USERS_ACCCOUNT.HASH_PASS = ?
+                    WHERE USERS_ACCCOUNT.EMAIL = '$email' ";
 
           $stmt = $link->prepare($sql);
           $NEWPASS=PASSWORD_HASH($NEWPASS,PASSWORD_DEFAULT);
@@ -277,7 +281,7 @@
   <!-- End of user changing password -->
 
 
-  <!-- Add items -->
+  <!-- Add sub items -->
   <div id="addsub" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

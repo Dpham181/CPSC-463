@@ -1,6 +1,8 @@
-<!-- TO DO 
-  Work on the update_item portion. It is currently not updating. May need to compare with previous code
+<!-- 
+  This page is the home page of the admin panel.
+  This page represents the Dashboard button.
 -->
+
 
 <!-- PHP Code to load the database -->
 <?php
