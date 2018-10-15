@@ -42,20 +42,6 @@
 
   $id = null;
 
-  if (isset($_GET['id'])){
-    $id= $_GET['id'];
-  }
-
-  $sub_item_name = null;
-
-  $sql2 = "SELECT SUB_ITEMS.NAME
-           FROM SUB_ITEMS
-           WHERE SUB_ITEMS.SI_NUM='3'";
-  $stmt2=$link->prepare($sql2);
-  $stmt2->execute();
-  $stmt2->store_result();
-  $stmt2->bind_result($sub_item_name);
-
 ?>
 <!-- End of loading the database -->
 
