@@ -95,11 +95,11 @@
             <!-- End of menu dropdown -->
 
             <!-- Other buttons on the top bar -->
-            <a href="#">
+            <a href="admin_page.php">
               <button type="button" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard</button>
             </a>
-            <a href="sharing.php">
+            <a href="#" data-toggle="modal">
               <button type="button" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>Sharing</button>
             </a>
@@ -108,6 +108,7 @@
                 <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Item
               </button>
             </a>
+
             <a href="#vieworder" data-toggle="modal">
               <button type='button' class='btn btn-success btn-sm'>
                 <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>View Ordering
@@ -128,133 +129,23 @@
 
 <body>
 
-<!-- This will produce a dark table -->
 <table class="table table-hover table-dark">
-
-  <!-- Table header -->
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">NAME</th>
-      <th scope="col">BRAND</th>
-      <th scope="col">PRICE</th>
-      <th scope="col">STATUS</th>
-      <th scope="col">QUANITY</th>
-      <th scope="col">ACTION</th>
-      <th scope="col">
-        <form method="post" class="form-horizontal" role="form">
-          <div class="custom-select" style="width:140px;">
-            <select  name="subitems_id" required>
-              <option  selected disabled hidden>Choose Category </option>
-              <?php
-                $sql = "SELECT
-                        ITEMS.ITEM_NUM,
-                        ITEMS.TITLE
-                        FROM ITEMS";
-
-                $stmt=$link->prepare($sql);
-                $stmt -> execute();
-                $stmt->store_result();
-                $stmt->bind_result($item_num,$title);
-
-                while( $stmt->fetch() )
-                {
-                  echo "<option value=\"$item_num\">".$title."</option>\n";
-                }
-
-                $stmt->free_result();
-                $stmt->close();
-              ?>
-            </select>
-          </div> <!-- End custom-select div -->
-        
-          <button type="submit" class="btn btn-primary" name="viewitems">
-            <span class="glyphicon glyphicon-plus"></span>generate
-          </button>
-
-        </form> <!-- End of form-horizontal -->
-      </th>
-    </tr>
-  </thead>
-  <!-- End of table header -->
-
-  <!-- Table body -->
-  <tbody>
-    <?php
-      $count = 1;
-
-      if (isset($_POST["viewitems"])){
-        $item_id = $_POST["subitems_id"];
-        $sql = "SELECT
-                SUB_ITEMS.SI_NUM,
-                SUB_ITEMS.BRAND,
-                SUB_ITEMS.PRICE,
-                SUB_ITEMS.NAME,
-                SUB_ITEMS.STATUS,
-                SUB_ITEMS.QUANITY
-                FROM SUB_ITEMS
-                WHERE SUB_ITEMS.ISI_NUM = '$item_id' ";
-
-        $stmt1=$link->prepare($sql);
-        $stmt1-> execute();
-        $stmt1->store_result();
-        $stmt1->bind_result(
-                              $SI_NUM,
-                              $BRAND,
-                              $PRICE,
-                              $NAME,
-                              $STATUS,
-                              $QUANITY 
-                           );
-
-        $NONE= "Empty";
-
-        if ($stmt1->num_rows == 0){
-          echo "<tr>";
-          echo "<th scope=\"row\">".""."</th>\n";
-          echo "<td>".$NONE."</td>\n";
-          echo "<td>".$NONE."</td>\n";
-          echo "<td>".$NONE."</td>\n";
-          echo "<td>".$NONE."</td>\n";
-          echo "<td>".$NONE."</td>\n";
-        } else{
-          while($stmt1->fetch())
-          {
-            echo "<tr>";
-            echo "<th scope=\"row\">".$count++."</th>\n"; // Because we are having a count at 1, it will not match the SI_NUM if we delete an item
-            echo "<td>".$NAME."</td>\n";
-            echo "<td>".$BRAND."</td>\n";
-            echo "<td>".$PRICE."</td>\n";
-            echo "<td>".$STATUS."</td>\n";
-            echo "<td>".$QUANITY."</td>\n";
-            echo "<td>";
-
-            // Button to remove an item
-            echo "<a href='choose_remove.php?id=" . $SI_NUM . "'>
-                    <button type='button' class='btn btn-danger btn-sm'>
-                      <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
-                    </button>
-                  </a> ";
-            
-            // This will go to a new page
-            echo "<a href='update_item.php?id=" . $SI_NUM . "'>
-                    <button type='button' class='btn btn-warning btn-sm'>
-                      <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
-                    </button> 
-                  </a>";
-          }
-        }
-
-        $stmt1->data_seek(0);
-        $stmt1->close();
-      }
-    ?>
-
-  </tbody>
-  <!-- End of table body -->
-</table>
+<!-- Table header -->
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">CUSTOMER</th>
+    <th scope="col">NAME</th>
+    <th scope="col">BRAND</th>
+    <th scope="col">DESCRIPTION</th>
+    <th scope="col">REVIEWS</th>
+    <th scope="col"></th>
+  </tr>
+</thead>
 
 <!-- Sharing -->
+<h2 style="text-align:center">Sharing</h2>
+<!-- Add orders and user's names here -->
 
 <!-- End of sharing -->
 
