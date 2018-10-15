@@ -17,6 +17,31 @@ padding:0;
 width:100%;
 
 }
+
+.card-selection {
+  display: block;
+  margin-top: 20px;
+}
+
+.card {
+  margin: 10px;
+  width: 16rem;
+  text-align: center;
+  background-color: #faf3dd;
+}
+
+.card-title {
+  font-size: 1.6em;
+}
+
+.card-text {
+  font-size: 1.2em;
+}
+
+.card-price {
+  font-size: 1.4em;
+}
+
 footer {
   background:#35424a;
   font: 15px/1.5 Arial, Helvetica,sans-serif;
