@@ -10,7 +10,6 @@ width:100%;
 
 body {
 background-color: gray;
-
 height:100%;
 margin:0;
 padding:0;
@@ -41,6 +40,23 @@ width:100%;
 .card-price {
   font-size: 1.4em;
 }
+.fa-stack {
+  margin-left: 10px;
+  margin-right: 10px; 
+}
+
+.fa-circle{
+  color: aliceblue;
+}
+
+.fa-shopping-cart{
+  line-height: 250%;
+}
+.cart-number {
+  line-height: 100%;
+  font-size: .8em;
+}
+
 
 footer {
   background:#35424a;
