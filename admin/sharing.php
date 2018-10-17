@@ -1,8 +1,7 @@
 <!-- 
-  This page is the home page of the admin panel.
-  This page represents the Dashboard button.
+  This page is the sharing page of the admin panel.
 
-  The update profile needs to update the database before admins can view the users
+  The update profile needs to update the database before admins can view the users for sharing.
 -->
 
 
@@ -138,7 +137,8 @@
   <!-- Table header -->
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">SELECT</th>
+      <th scope="col">ID</th>
       <th scope="col">FIRST NAME</th>
       <th scope="col">LAST NAME</th>
       <th scope="col">ITEM NAME</th>
@@ -155,15 +155,11 @@
   <!-- This is not working, because when you update your profile, the database doesn't get updated -->
   <tbody>
     <?php
-
-      if (isset($_POST["viewusers"])){
-        $user = $_POST["user"];
         $sql = "SELECT
                 PROFILE.PROFILE_ID,
                 PROFILE.FIRST_NAME,
                 PROFILE.LAST_NAME
-                FROM PROFILE
-                WHERE PFOFILE.PROFILE_ID = 'user' ";
+                FROM PROFILE";
 
         $stmt1=$link->prepare($sql);
         $stmt1-> execute();
@@ -178,43 +174,36 @@
 
         if ($stmt1->num_rows == 0){
           echo "<tr>";
-          echo "<th scope=\"row\">".""."</th>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
-        } else{
+          echo "<td>".$NONE."</td>\n";
+          echo "<td>".$NONE."</td>\n";
+        } else {
           while($stmt1->fetch())
           {
             echo "<tr>";
+            echo "<td>
+                  <a href='#'>
+                    <button type='button' class='btn btn-light btn-sm'>
+                      <span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>
+                    </button>
+                  </a> 
+                  </td>\n";
             echo "<td>".$PROFILE_ID."</td>\n";
             echo "<td>".$FIRST_NAME."</td>\n";
             echo "<td>".$LAST_NAME."</td>\n";
             echo "<td>"."</td>\n";
             echo "<td>"."</td>\n";
             echo "<td>"."</td>\n";
-            echo "<td>";
-
-            // Button to remove an item
-            echo "<a href='choose_remove.php?id=" . $PROFILE_ID . "'>
-                    <button type='button' class='btn btn-danger btn-sm'>
-                      <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
-                    </button>
-                  </a> ";
-            
-            // This will go to a new page
-            echo "<a href='update_item.php?id=" . $PROFILE_ID. "'>
-                    <button type='button' class='btn btn-warning btn-sm'>
-                      <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
-                    </button> 
-                  </a>";
+            echo "<td>"."</td>\n";
           }
         }
 
         $stmt1->data_seek(0);
         $stmt1->close();
-      }
     ?>
 
   </tbody>
