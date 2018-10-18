@@ -44,7 +44,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
   <header>
 
       <a href="../home.html"><img src="../img/logo.png" width="10%" height="90%"></a>
-    
+
       <div class="flex-container">
         <span class="fa-stack fa-lg">
         <span class="fa fa-circle fa-stack-2x "></span>
@@ -52,15 +52,11 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
         <span class="fa cart-number fa-stack-1x"><p id="cart-number">0</p></span>
         </span>
 
-        <a href="#"><button class="btn btn-info btn-sm" type="button">Home</button></a>
-
-        <a href="purchase_history.php">
-          <button class="btn btn-default btn-sm" type="button">Purchase History</button>
-        </a>
+        <a href="regular_page.php"><button class="btn btn-info btn-sm" type="button">Home</button></a>
+        <a href="#"><button class="btn btn-light btn-sm" type="button">Purchase History</button></a>
 
           <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> <?php echo $_SESSION['email'] . " ($session_role)"; ?>
-              
               <ul class="dropdown-menu">
                   <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
                   <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change Password</a></li>
@@ -73,9 +69,6 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 
 
    <body>
-     <!-- displaying items to the regular user -->
-     <?php include 'regular_display.php'; ?>
-
      <!-- Modal for shopping cart -->
      <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-hidden="true">
        <div class='modal-dialog' role='document'>
@@ -174,7 +167,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
              <div class="modal-content">
                  <div class="modal-header">
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                     <h4 class="modal-title">Change PassWord</h4>
+                     <h4 class="modal-title">Change Password</h4>
                  </div>
                  <div class="modal-body">
                      <form method="post" class="form-horizontal" role="form">
@@ -215,7 +208,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 <?php
 $id = $_SESSION['id'];
 $sql = " SELECT
-          PROFILE.FIRST_NAME,
+          PROFILE.FIRST_NAME, 
           PROFILE.LAST_NAME,
           PROFILE.COUNTRY,
           PROFILE.ZIPCODE,
