@@ -193,7 +193,7 @@
                 SUB_ITEMS.PRICE,
                 SUB_ITEMS.NAME,
                 SUB_ITEMS.STATUS,
-                SUB_ITEMS.QUANITY
+                SUB_ITEMS.QUANTITY
                 FROM SUB_ITEMS
                 WHERE SUB_ITEMS.ISI_NUM = '$item_id' ";
 
