@@ -31,8 +31,9 @@ footer {
   width:100%;
 }
 .flex-container {
-  align-items: flex-end;
   display: flex;
+  align-items: flex-end;
   height: 20px;
   justify-content: flex-start;
+
 }

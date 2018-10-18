@@ -1,36 +1,44 @@
 header {
-border-bottom:#e8491d 3px solid;
-
-background:#35424a;
-height: 100px;
-font: 15px/1.5 Arial, Helvetica,sans-serif;
 top:0;
-width:100%;
+width: 100%;
+background: #fff;
+height: 100px;
+margin-bottom: 15px;
 }
 
-body {
-background-image:url('../img/board-background.jpg');height:100%;
-margin:0;
-padding:0;
-width:100%;
 
-}
+
 footer {
   background:#35424a;
   font: 15px/1.5 Arial, Helvetica,sans-serif;
-
   border-top:#e8491d 3px solid;
-
   bottom:0;
   height: 50px;
   text-align: center;
-  position:absolute;
-
+  margin-top: 20px;
   width:100%;
+  height: 100px;
 }
+
 .flex-container {
-  align-items: flex-end;
   display: flex;
-  height: 20px;
-  justify-content: flex-start;
+  height: 100px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+nav{
+  width: 100%;
+  height: 130px;
+  border-bottom:#e8491d 3px solid;
+
+
+}
+
+.carousel-inner
+{
+  height: 100%;
 }
