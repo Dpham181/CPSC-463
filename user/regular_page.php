@@ -61,7 +61,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
             </div>
           </div>
 
-  </header>
+  </header> 
 
 
    <body>
@@ -83,13 +83,18 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
         </div>
         <div class="totalAmount text-center"><p>Total: $<span id="totalAmountValue">0</span></p></div>
         <div class='modal-footer'>
-            <button type='button' class='btn btn-primary' onclick="purchaseReceipt()">Purchase Items</button>
+            <button type='button'  name="purchase" class='btn btn-primary' onclick="purchaseReceipt()">Purchase Items</button>
             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
         </div>
         </div>
     </div>
     </div>
     </div>
+    <?php
+      if(isset($_POST["purchase"])){
+        # query purchase data here
+      }
+    ?>
      <!-- ________________________________________________________Start of Password change form -->
      <?php
      $NEWPASS="";
