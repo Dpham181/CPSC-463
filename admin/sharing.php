@@ -1,8 +1,9 @@
 <!-- 
-  This page is the home page of the admin panel.
-  This page represents the Dashboard button.
+  This page is the sharing page of the admin panel.
 
-  Add item is not adding any new catgories.
+  The update profile needs to update the database before admins can view the users for sharing.
+    - The profile updates only if there is something in the database. I created a new user and it loads.
+    - However, if the profile gets deleted, it will not create another row in the database.
 -->
 
 
@@ -99,11 +100,11 @@
             <!-- End of menu dropdown -->
 
             <!-- Other buttons on the top bar -->
-            <a href="#">
+            <a href="admin_page.php">
               <button type="button" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>Dashboard</button>
             </a>
-            <a href="sharing.php">
+            <a href="#">
               <button type="button" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>Sharing</button>
             </a>
@@ -138,120 +139,74 @@
   <!-- Table header -->
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">NAME</th>
+      <th scope="col">SELECT</th>
+      <th scope="col">ID</th>
+      <th scope="col">FIRST NAME</th>
+      <th scope="col">LAST NAME</th>
+      <th scope="col">ITEM NAME</th>
       <th scope="col">BRAND</th>
-      <th scope="col">PRICE</th>
-      <th scope="col">STATUS</th>
-      <th scope="col">QUANITY</th>
-      <th scope="col">ACTION</th>
-      <th scope="col">
-        <form method="post" class="form-horizontal" role="form">
-          <div class="custom-select" style="width:140px;">
-            <select  name="subitems_id" required>
-              <option  selected disabled hidden>Choose Category </option>
-              <?php
-                $sql = "SELECT
-                        ITEMS.ITEM_NUM,
-                        ITEMS.TITLE
-                        FROM ITEMS";
-
-                $stmt=$link->prepare($sql);
-                $stmt -> execute();
-                $stmt->store_result();
-                $stmt->bind_result($item_num,$title);
-
-                while( $stmt->fetch() )
-                {
-                  echo "<option value=\"$item_num\">".$title."</option>\n";
-                }
-
-                $stmt->free_result();
-                $stmt->close();
-              ?>
-            </select>
-          </div> <!-- End custom-select div -->
-        
-          <button type="submit" class="btn btn-primary" name="viewitems">
-            <span class="glyphicon glyphicon-plus"></span>generate
-          </button>
-
-        </form> <!-- End of form-horizontal -->
-      </th>
+      <th scope="col">DESCRIPTION</th>
+      <th scope="col">REVIEWS</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <!-- End of table header -->
 
   <!-- Table body -->
+  <!-- This needs to be changed for the sharing page -->
+  <!-- This is not working, because when you update your profile, the database doesn't get updated -->
   <tbody>
     <?php
-      $count = 1;
-
-      if (isset($_POST["viewitems"])){
-        $item_id = $_POST["subitems_id"];
         $sql = "SELECT
-                SUB_ITEMS.SI_NUM,
-                SUB_ITEMS.BRAND,
-                SUB_ITEMS.PRICE,
-                SUB_ITEMS.NAME,
-                SUB_ITEMS.STATUS,
-                SUB_ITEMS.QUANITY
-                FROM SUB_ITEMS
-                WHERE SUB_ITEMS.ISI_NUM = '$item_id' ";
+                PROFILE.PROFILE_ID,
+                PROFILE.FIRST_NAME,
+                PROFILE.LAST_NAME
+                FROM PROFILE";
 
         $stmt1=$link->prepare($sql);
         $stmt1-> execute();
         $stmt1->store_result();
         $stmt1->bind_result(
-                              $SI_NUM,
-                              $BRAND,
-                              $PRICE,
-                              $NAME,
-                              $STATUS,
-                              $QUANITY 
+                              $PROFILE_ID,
+                              $FIRST_NAME,
+                              $LAST_NAME
                            );
 
         $NONE= "Empty";
 
         if ($stmt1->num_rows == 0){
           echo "<tr>";
-          echo "<th scope=\"row\">".""."</th>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$NONE."</td>\n";
-        } else{
+          echo "<td>".$NONE."</td>\n";
+          echo "<td>".$NONE."</td>\n";
+        } else {
           while($stmt1->fetch())
           {
             echo "<tr>";
-            echo "<th scope=\"row\">".$count++."</th>\n"; // Because we are having a count at 1, it will not match the SI_NUM if we delete an item
-            echo "<td>".$NAME."</td>\n";
-            echo "<td>".$BRAND."</td>\n";
-            echo "<td>".$PRICE."</td>\n";
-            echo "<td>".$STATUS."</td>\n";
-            echo "<td>".$QUANITY."</td>\n";
-            echo "<td>";
-
-            // Button to remove an item
-            echo "<a href='choose_remove.php?id=" . $SI_NUM . "'>
-                    <button type='button' class='btn btn-danger btn-sm'>
-                      <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
-                    </button>
-                  </a> ";
-            
-            // This will go to a new page
-            echo "<a href='update_item.php?id=" . $SI_NUM . "'>
-                    <button type='button' class='btn btn-warning btn-sm'>
-                      <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>
-                    </button> 
-                  </a>";
+            echo "<td>
+                  <a href='#'>
+                    <input class='form-check-input' type='checkbox' style='text-align: center; vertical-align: middle;'></input>
+                    <!--<button type='button' class='btn btn-light btn-sm'>
+                      <span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>
+                    </button>-->
+                  </a> 
+                  </td>\n";
+            echo "<td>".$PROFILE_ID."</td>\n";
+            echo "<td>".$FIRST_NAME."</td>\n";
+            echo "<td>".$LAST_NAME."</td>\n";
+            echo "<td>"."</td>\n";
+            echo "<td>"."</td>\n";
+            echo "<td>"."</td>\n";
+            echo "<td>"."</td>\n";
           }
         }
 
         $stmt1->data_seek(0);
         $stmt1->close();
-      }
     ?>
 
   </tbody>
@@ -259,8 +214,8 @@
 </table>
 
 <!-- Sharing -->
+<!-- Want to have an option to select which users will be shared -->
 
-<!-- End of sharing -->
 
 <!-- Adding Title -->
 <div id="add" class="modal fade" role="dialog">
@@ -390,7 +345,7 @@
   <!-- End of user changing password -->
 
 
-  <!-- Add subitems -->
+  <!-- Add items -->
   <div id="addsub" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
