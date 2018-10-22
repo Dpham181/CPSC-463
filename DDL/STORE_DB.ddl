@@ -154,10 +154,10 @@ INSERT INTO ITEMS VALUES
 -- STATUS (Available/NotAvailable)
 -- QUANTITY (0-10)
 INSERT INTO SUB_ITEMS VALUES
-(1,1, 'Toffee Coffee', 10, '...', 'available', 10),
-(2,1, 'Hazlenut Haze', 11, '...', 'available', 5),
-(3,1, 'Coconut Coco', 12, '...', 'available', 4),
-(4,1, 'Caramel Cafe', 7, '...', 'available', 10),
-(5,1, 'Honey Cup', 8, '...', 'available', 8),
-(6,1, 'Pumpkin Latte', 12, '...', 'available', 6),
-(7,2, 'Brazilian Coffee', 6, '...', 'available', 7);
+(1,1, 'Toffee Coffee', 10, '...', 'available', 100),
+(2,1, 'Hazlenut Haze', 11, '...', 'available', 100),
+(3,1, 'Coconut Coco', 12, '...', 'available', 100),
+(4,1, 'Caramel Cafe', 7, '...', 'available', 100),
+(5,1, 'Honey Cup', 8, '...', 'available', 100),
+(6,1, 'Pumpkin Latte', 12, '...', 'available', 100),
+(7,2, 'Brazilian Coffee', 6, '...', 'available', 100);
