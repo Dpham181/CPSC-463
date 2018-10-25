@@ -163,18 +163,26 @@ INSERT INTO SUB_ITEMS VALUES
 (7,2, 'Brazilian Coffee', 6, '...', 'available', 100);
 
 -- ORDER_ID
--- CORDER_ID - user id
+-- CORDER_ID - user id --- CUSTOMER_ID
 -- payment status
 -- dat purchased
 INSERT INTO ORDERING VALUES
-(1, 4, credit, "2018-10-24 19:39:12");
+(2, 2, 'pass', "2018-10-24 19:39:12");
 
 -- invoice id
--- subitems id
--- order id
+-- subitems id --- SI_NUM the unique subitem number
+-- order id ---- CUSTOMER_ID
 -- QUANTITY
 -- price
 -- customer INFO_ID
 -- total
 INSERT INTO INVOICE VALUES
-(1, 2, 4, 3, 11, 'name and infos of user', 107);
+
+(1, 2, 2, 3, 11, 'name and some customer info', 107);
+(2, 3, 2, 1, 12, 'more info about the purchase', 107)
+
+
+-- "(incrementing unique number, the unique sub item that was purchased, customer id that is created when they register, the qty purchased,
+-- the price of the singular item, misc. info, total purchase amount)"
+
+-- select * from invoice where invoice.order_id = 2 (the 2 comes from the $session id in php)
