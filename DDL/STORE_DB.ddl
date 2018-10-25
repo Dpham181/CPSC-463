@@ -161,3 +161,20 @@ INSERT INTO SUB_ITEMS VALUES
 (5,1, 'Honey Cup', 8, '...', 'available', 100),
 (6,1, 'Pumpkin Latte', 12, '...', 'available', 100),
 (7,2, 'Brazilian Coffee', 6, '...', 'available', 100);
+
+-- ORDER_ID
+-- CORDER_ID - user id
+-- payment status
+-- dat purchased
+INSERT INTO ORDERING VALUES
+(1, 4, credit, "2018-10-24 19:39:12");
+
+-- invoice id
+-- subitems id
+-- order id
+-- QUANTITY
+-- price
+-- customer INFO_ID
+-- total
+INSERT INTO INVOICE VALUES
+(1, 2, 4, 3, 11, 'name and infos of user', 107);

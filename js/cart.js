@@ -19,13 +19,13 @@ function addToCart(dataArray){
 function openCart(){
     console.log(Cart);
     $(".modal-body").replaceWith(
-       cartIterator(Cart)
+       cartIterator(Cart, "modal-body")
     );
     $("#totalAmountValue").text(cartAmount);
 }
 
-function cartIterator(arr){
-    var cartItems = "<div class='modal-body'>";
+function cartIterator(arr, subject){
+    var cartItems = "<div class='"+subject+"'>";
     for(var i = 0; i < arr.length; i++){
         cartItems += "<p>Brand: "+arr[i].Brand+"<br/>Price: "+arr[i].Price+"</p><label>Quantity: "+arr[i].Quantity+"</label>";
     }
@@ -51,5 +51,20 @@ function cartAmount(){
 }
 
 function purchaseReceipt(){
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:8080/user/checkout.php",
+        data: Cart,
+        dataType: "application/json",
+        contentType: "text/plain",
+        success: function(res){
+            console.log("checkout successful");
+        }
+    });
+    // window.location.href = "/user/receipt.html";
+    // $("#item-content").replaceWith(
+    //     cartIterator(Cart, "item-content")
+    // );
     
+    // Simulate a mouse click:
 }
