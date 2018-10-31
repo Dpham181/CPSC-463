@@ -44,7 +44,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
   <header>
 
       <a href="../home.html"><img src="../img/logo.png" width="10%" height="90%"></a>
-
+    
       <div class="flex-container">
         <span class="fa-stack fa-lg">
         <span class="fa fa-circle fa-stack-2x "></span>
@@ -53,14 +53,15 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
         </span>
 
         <a href="regular_page.php"><button class="btn btn-info btn-sm" type="button">Home</button></a>
-        <a href="#"><button class="btn btn-light btn-sm" type="button">Purchase History</button></a>
-        <a href="shared_items.php">
+        <a href="purchase_history.php">
+          <button class="btn btn-default btn-sm" type="button">Purchase History</button>
+        </a>
+        <a href="#">
           <button class="btn btn-success btn-sm" type="button">Shared Orders</button>
         </a>
 
         <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> 
-            <?php echo $_SESSION['email'] . " ($session_role)"; ?>
+            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> <?php echo $_SESSION['email'] . " ($session_role)"; ?>
             <ul class="dropdown-menu">
                 <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
                 <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change Password</a></li>
@@ -73,61 +74,8 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 
 
    <body>
-
-  <!-- __________ Table __________ --> 
-  <table class="table table-hover table-dark">
-
-  <!-- Table header -->
-  <thead>
-    <tr>
-      <th scope="col">SHARING</th>
-      <th scope="col">PURCHASE DATE</th>
-      <th scope="col">ITEM NAME</th>
-      <th scope="col">QUANTITY</th>
-      <th scope="col">PRICE</th>
-    </tr>
-  </thead>
-  <!-- End of table header -->
-
-  <!-- Table body -->
-  <tbody>
-    <?php
-      $sql = "SELECT SUB_ITEMS.SI_NUM, SUB_ITEMS.BRAND, 
-                    SUB_ITEMS.PRICE, SUB_ITEMS.QUANTITY
-              FROM SUB_ITEMS, INVOICE
-              WHERE SUB_ITEMS.SI_NUM = INVOICE.OR_ID";
-
-      $stmt1=$link->prepare($sql);
-      $stmt1->execute();
-      $stmt1->store_result();
-      $stmt1->bind_result($SI_NUM, $BRAND, $PRICE, $QUANTITY);
-      $NONE="Empty";
-      if($stmt1->num_rows == 0) {
-        echo "<tr>";
-        echo "<th scope=\"row\">"." "."</th>\n";
-        echo "<td>".$NONE."</td>\n";
-        echo "<td>".$NONE."</td>\n";
-        echo "<td>".$NONE."</td>\n";
-        echo "<td>".$NONE."</td>\n";
-      } else {
-        while($stmt1->fetch()) {
-          echo "<tr>";
-          echo "<th scope=\"row\"><input type='checkbox' />"."</th>\n";
-          echo "<td>".$NONE."</td>\n";
-          echo "<td>".$BRAND."</td>\n";
-          echo "<td>".$QUANTITY."</td>\n";
-          echo "<td>".$PRICE."</td>\n";
-        }
-      }
-
-      $stmt1->data_seek(0);
-      $stmt1->close();
-    ?>
-  </tbody>
-  <!-- End of table body -->
-</table>
-<!-- ______________ End of table ___________________ -->
-
+     <!-- displaying items to the regular user -->
+     <?php include 'sharing_display.php'; ?>
 
      <!-- Modal for shopping cart -->
      <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -152,8 +100,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
     </div>
     </div>
     <?php
-      # query purchase data here
-        
+        # query purchase data here
     ?>
      <!-- ________________________________________________________Start of Password change form -->
      <?php
@@ -226,7 +173,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
              <div class="modal-content">
                  <div class="modal-header">
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                     <h4 class="modal-title">Change Password</h4>
+                     <h4 class="modal-title">Change PassWord</h4>
                  </div>
                  <div class="modal-body">
                      <form method="post" class="form-horizontal" role="form">
@@ -267,7 +214,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 <?php
 $id = $_SESSION['id'];
 $sql = " SELECT
-          PROFILE.FIRST_NAME, 
+          PROFILE.FIRST_NAME,
           PROFILE.LAST_NAME,
           PROFILE.COUNTRY,
           PROFILE.ZIPCODE,

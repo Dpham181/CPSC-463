@@ -223,7 +223,7 @@
           while($stmt1->fetch())
           {
             echo "<tr>";
-            echo "<th scope=\"row\">".$count++."</th>\n"; // Because we are having a count at 1, it will not match the SI_NUM if we delete an item
+            echo "<th scope=\"row\">".$count++."</th>\n";
             echo "<td>".$NAME."</td>\n";
             echo "<td>".$BRAND."</td>\n";
             echo "<td>".$PRICE."</td>\n";

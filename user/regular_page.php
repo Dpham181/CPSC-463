@@ -53,20 +53,21 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
         </span>
 
         <a href="#"><button class="btn btn-info btn-sm" type="button">Home</button></a>
-
         <a href="purchase_history.php">
           <button class="btn btn-default btn-sm" type="button">Purchase History</button>
         </a>
+        <a href="shared_items.php">
+          <button class="btn btn-success btn-sm" type="button">Shared Orders</button>
+        </a>
 
-          <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> <?php echo $_SESSION['email'] . " ($session_role)"; ?>
-              
-              <ul class="dropdown-menu">
-                  <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
-                  <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change Password</a></li>
-                  <li><a href="#profile" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Update Profile</a></li>
-              </ul>
-            </div>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> <?php echo $_SESSION['email'] . " ($session_role)"; ?>
+            <ul class="dropdown-menu">
+                <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
+                <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change Password</a></li>
+                <li><a href="#profile" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Update Profile</a></li>
+            </ul>
+          </div>
         </div>
 
   </header> 
@@ -99,9 +100,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
     </div>
     </div>
     <?php
-      if(isset($_POST["purchase"])){
         # query purchase data here
-      }
     ?>
      <!-- ________________________________________________________Start of Password change form -->
      <?php

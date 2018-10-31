@@ -30,13 +30,7 @@ CREATE TABLE USERS_ACCCOUNT
 );
 SET time_zone='+00:00';
 
-CREATE TABLE ADMIN
-(
-  ADMIN_ID INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  MUSER_ID INT(10) UNSIGNED NOT NULL,
 
-  CONSTRAINT FOREIGN KEY (MUSER_ID) REFERENCES USERS_ACCCOUNT(ACC_NUM)
-);
 CREATE TABLE CUSTOMER
 (
   CUSTOMER_ID INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -99,7 +93,7 @@ CREATE TABLE SUB_ITEMS
   PRICE INT(10) UNSIGNED DEFAULT 0,
   NAME VARCHAR(10),
   STATUS VARCHAR(100),
-  QUANITY INT(10) UNSIGNED DEFAULT 0,
+  QUANTITY INT(10) UNSIGNED DEFAULT 0,
 
   CONSTRAINT FOREIGN KEY (ISI_NUM) REFERENCES ITEMS(ITEM_NUM)
 
@@ -109,15 +103,15 @@ CREATE TABLE INVOICE
   INVOICE_ID INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   ITEMS_ID INT(10) UNSIGNED NOT NULL,
   OR_ID INT (10) UNSIGNED NOT NULL,
-  QUANITY INT(250) UNSIGNED DEFAULT 0,
+  QUANTITY INT(250) UNSIGNED DEFAULT 0,
   PRICE INT (10) UNSIGNED DEFAULT 0,
   CUS_INFO VARCHAR(250),
   TOTAL INT(10) UNSIGNED DEFAULT 0,
 
   CONSTRAINT FOREIGN KEY (ITEMS_ID) REFERENCES SUB_ITEMS(SI_NUM),
-  CONSTRAINT FOREIGN KEY (OR_ID) REFERENCES ORDERING(ORDER_ID)
+  CONSTRAINT FOREIGN KEY (OR_ID) REFERENCES ORDERING(ORDER_ID),
 
-
+  SHARING BIT DEFAULT 0
 );
 
 GRANT SELECT, INSERT, DELETE, UPDATE ON STORE_SITE.* TO 'dbhost'@'localhost';
@@ -125,8 +119,6 @@ GRANT SELECT, INSERT, DELETE, UPDATE ON STORE_SITE.* TO 'admin'@'localhost';
 
 GRANT SELECT ON STORE_SITE.* TO 'regular'@'localhost';
 GRANT UPDATE ON STORE_SITE.PROFILE TO 'regular'@'localhost';
-GRANT UPDATE ON STORE_SITE.USERS_ACCCOUNT TO 'regular'@'localhost';
-
 GRANT INSERT ON STORE_SITE.ITEMS TO 'regular'@'localhost';
 GRANT INSERT ON STORE_SITE.SUB_ITEMS TO 'regular'@'localhost';
 
@@ -137,3 +129,60 @@ INSERT INTO USERS_ACCCOUNT VALUES
 (2,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','anthonyle63@csu.fullerton.edu',CURRENT_TIMESTAMP,'R'),
 (3,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','hecmed@csu.fullerton.edu',CURRENT_TIMESTAMP,'A'),
 (4,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'allensarmiento@csu.fulleton.edu',CURRENT_TIMESTAMP,'R');
+
+
+-- CUSTOMER
+-- ORDERING
+-- ITEMS
+-- SUB_ITEMS
+INSERT INTO CUSTOMER VALUES
+(1, 3, 'MasterCard'),
+(2, 4, 'MasterCard');
+
+INSERT INTO ORDERING VALUES
+(1, 1,'Sure', CURRENT_TIMESTAMP);
+
+INSERT INTO ITEMS VALUES
+(1, 1,'CoffeeHut'),
+(2, 1,'MojoJojo');
+
+
+-- SI_NUM (increase by 1)
+-- ISI_NUM (product company id)
+-- BRAND (name of product)
+-- PRICE (price of product)
+-- NAME (??? redundant?)
+-- STATUS (Available/NotAvailable)
+-- QUANTITY (0-10)
+INSERT INTO SUB_ITEMS VALUES
+(1,1, 'Toffee Coffee', 10, '...', 'available', 10),
+(2,1, 'Hazlenut Haze', 11, '...', 'available', 5),
+(3,1, 'Coconut Coco', 12, '...', 'available', 4),
+(4,1, 'Caramel Cafe', 7, '...', 'available', 10),
+(5,1, 'Honey Cup', 8, '...', 'available', 8),
+(6,1, 'Pumpkin Latte', 12, '...', 'available', 6),
+(7,2, 'Brazilian Coffee', 6, '...', 'available', 7);
+
+
+
+
+INSERT INTO ORDERING VALUES
+(2, 2, 'PASS', CURRENT_TIMESTAMP);
+
+
+-- INVOICE_ID
+-- ITEMS_ID
+-- OR_ID
+-- QUANTITY
+-- PRICE
+-- CUS_INFO
+-- TOTAL
+INSERT INTO INVOICE VALUES
+-- "(incrementing unique number, the unique sub items that was purchased, customer id that is created when they register, quantity purchased)"
+(1, 2, 2, 3, 11, 'name and some cust', 107, FALSE),
+(2, 3, 2, 1, 12, 'more info about the purchase', 107, FALSE);
+
+
+
+-- select * from INVOICE where INVOICE.ORDER_ID = 
+-- select SI_NUM, BRAND, PRICE, QUANTITY from SUB_ITEMS;
