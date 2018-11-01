@@ -455,6 +455,7 @@
   </div> <!-- End div addsub -->
   <!-- End of add items -->
 
+<!-- _________Add sub items________ -->
 <?php
 
   if (isset($_POST["add_sub"])){
@@ -508,9 +509,10 @@
   }
 
   ?>
+  <!-- __________End of add sub itmes___________-->
 
 
-  <!-- VIEW ORDER-->
+  <!-- _____________VIEW ORDER___________________-->
   <?php
 
     $sql =" SELECT  ORDERING.ORDER_ID,
@@ -564,7 +566,7 @@
     </div>
   </div>
 </div>
-<!-- End of view orders -->
+<!-- ______________End of view orders _____________-->
 
 </body>
 

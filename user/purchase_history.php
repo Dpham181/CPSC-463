@@ -75,7 +75,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
    <body>
 
   <!-- __________ Table __________ --> 
-  <table class="table table-hover table-dark">
+  <table class="table table-hover table-dark" id="sharing_table">
 
   <!-- Table header -->
   <thead>
@@ -93,14 +93,16 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
   <tbody>
     <?php
       $sql = "SELECT SUB_ITEMS.SI_NUM, SUB_ITEMS.BRAND, 
-                    SUB_ITEMS.PRICE, SUB_ITEMS.QUANTITY
+                    SUB_ITEMS.PRICE, SUB_ITEMS.QUANTITY,
+                    INVOICE.SHARING, INVOICE.INVOICE_ID
               FROM SUB_ITEMS, INVOICE
               WHERE SUB_ITEMS.SI_NUM = INVOICE.OR_ID";
 
       $stmt1=$link->prepare($sql);
       $stmt1->execute();
       $stmt1->store_result();
-      $stmt1->bind_result($SI_NUM, $BRAND, $PRICE, $QUANTITY);
+      $stmt1->bind_result($SI_NUM, $BRAND, $PRICE, 
+                          $QUANTITY, $SHARING, $INVOICE_ID);
       $NONE="Empty";
       if($stmt1->num_rows == 0) {
         echo "<tr>";
@@ -112,7 +114,17 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
       } else {
         while($stmt1->fetch()) {
           echo "<tr>";
-          echo "<th scope=\"row\"><input type='checkbox' />"."</th>\n";
+          echo "<th scope=\"row\">
+                  <a href='allow_share.php?id=" . $INVOICE_ID ."'>
+                    <button type='button' class='btn btn-success btn-sm'>
+                      <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Share
+                    </button>
+                  </a>
+                  <a href='remove_share.php?id=" . $INVOICE_ID ."'>
+                    <button type='button' class='btn btn-danger btn-sm'>
+                      <span class='glyphicon glyphicon-minus' aria-hidden='true'></span>Remove
+                    </button>
+                  </a>"."</th>\n";
           echo "<td>".$NONE."</td>\n";
           echo "<td>".$BRAND."</td>\n";
           echo "<td>".$QUANTITY."</td>\n";
@@ -127,7 +139,6 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
   <!-- End of table body -->
 </table>
 <!-- ______________ End of table ___________________ -->
-
 
      <!-- Modal for shopping cart -->
      <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-hidden="true">

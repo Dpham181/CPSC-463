@@ -179,9 +179,9 @@ INSERT INTO ORDERING VALUES
 -- TOTAL
 INSERT INTO INVOICE VALUES
 -- "(incrementing unique number, the unique sub items that was purchased, customer id that is created when they register, quantity purchased)"
-(1, 2, 2, 3, 11, 'name and some cust', 107, FALSE),
-(2, 3, 2, 1, 12, 'more info about the purchase', 107, FALSE);
-
+(1, 2, 2, 3, 11, 'name and some cust', 107, TRUE),
+(2, 3, 2, 1, 12, 'more info about the purchase', 107, FALSE),
+(3, 4, 1, 3, 13, 'more info', 107, FALSE);
 
 
 -- select * from INVOICE where INVOICE.ORDER_ID = 

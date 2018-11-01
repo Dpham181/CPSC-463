@@ -10,7 +10,8 @@
                 ITEMS.TITLE 
             FROM sub_items, items, invoice 
             WHERE SUB_ITEMS.ISI_NUM = ITEMS.ITEM_NUM and 
-                SUB_ITEMS.SI_NUM = INVOICE.OR_ID")) {
+                SUB_ITEMS.SI_NUM = INVOICE.OR_ID and 
+                INVOICE.SHARING = TRUE")) {
         while ($row = $someQryObject->fetch_array()) {
             $dataArray[]=$row;
         }
