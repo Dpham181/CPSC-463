@@ -1,4 +1,3 @@
-
 var Cart = [];
 var cartNumber = 0;
 var index = 0;
@@ -11,7 +10,7 @@ function addToCart(dataArray){
         Cart[index].Quantity += 1;
     }
     else{
-        Cart.push({ "Brand" : dataArray.BRAND, "Price" : dataArray.PRICE, "Quantity": 1});
+        Cart.push({ "Brand" : dataArray.BRAND, "Price" : dataArray.PRICE, "Quantity": 1, "id": dataArray.SI_NUM});
     }
     $('#cart-number').text(cartNumber+=1);
 }
@@ -50,21 +49,21 @@ function cartAmount(){
     return total;
 }
 
-function purchaseReceipt(){
+function purchaseReceipt(session){
+    datapost = {
+        "Shopping" : Cart,
+        "Session" : session,
+        "Total" : cartAmount()
+    }
+    console.log(datapost);
     $.ajax({
         type:"POST",
         url:"http://localhost:8080/user/checkout.php",
-        data: Cart,
+        data: datapost,
         dataType: "application/json",
         contentType: "text/plain",
         success: function(res){
             console.log("checkout successful");
         }
     });
-    // window.location.href = "/user/receipt.html";
-    // $("#item-content").replaceWith(
-    //     cartIterator(Cart, "item-content")
-    // );
-    
-    // Simulate a mouse click:
 }
