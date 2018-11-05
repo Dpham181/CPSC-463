@@ -24,6 +24,8 @@
     //this way we don't have to keep track of timestamps when checking reciept on individual prices.
     $paymentstatus = "pass";
     $selectCustomer = "select * from CUSTOMER where CUSTOMER_ID=".$data->Session->id.";";
+    $stmt = $link->prepare("SELECT * FROM CUSTOMER WHERE CUSTOMER_ID=(?);")
+    $stmt->bind_param('i', $data->Session->id)
     if($someQryObject = $link->query($selectCustomer)){
         echo "it worked";
         echo "Grabbing the customer ID value";
@@ -32,6 +34,8 @@
     else{
         echo "Error: " . $query . "<br>" . $link->error;
     }
+
+
     $stmt = $link->prepare("INSERT INTO ORDERING(CORDER_ID, PAYMENT_STATUS) VALUES (?,?)");
     $stmt->bind_param('is', $customerID, $paymentstatus);
     if($stmt->execute()) {
@@ -41,6 +45,7 @@
         echo "Error: " . $query . "<br>" . $link->error;
     }
     $stmt->close();
+
 
     $getLatestOrderingID = "SELECT max(ORDER_ID) from ORDERING where CORDER_ID = ".$customerID.";";
     if($someQryObject = $link->query($getLatestOrderingID)){
