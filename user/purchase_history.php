@@ -93,11 +93,17 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
   <tbody>
     <?php
       $sql = "SELECT SUB_ITEMS.SI_NUM, SUB_ITEMS.BRAND, 
-                    SUB_ITEMS.PRICE, SUB_ITEMS.QUANTITY,
+                    SUB_ITEMS.PRICE, INVOICE.QUANTITY,
                     INVOICE.SHARING, INVOICE.INVOICE_ID
               FROM SUB_ITEMS, INVOICE
-              WHERE SUB_ITEMS.SI_NUM = INVOICE.OR_ID";
-
+              WHERE SUB_ITEMS.SI_NUM = INVOICE.ITEMS_ID
+              ORDER BY INVOICE.OR_ID DESC;";
+      $sql2 = "SELECT SUB_ITEMS.SI_NUM, SUB_ITEMS.BRAND, 
+                      SUB_ITEMS.PRICE, INVOICE.QUANTITY,
+                      INVOICE.SHARING, INVOICE.INVOICE_ID,
+                      t3.DATE_ORDER
+               FROM SUB_ITEMS, INVOICE JOIN ORDERING AS t3 ON t3.CORDER_ID = INVOICE.OR_ID
+               WHERE SUB_ITEMS.SI_NUM = INVOICE.ITEMS_ID;";
       $stmt1=$link->prepare($sql);
       $stmt1->execute();
       $stmt1->store_result();

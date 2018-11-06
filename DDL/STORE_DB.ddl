@@ -139,7 +139,6 @@ INSERT INTO USERS_ACCCOUNT VALUES
 INSERT INTO CUSTOMER VALUES
 (1, 3, 'MasterCard'),
 (2, 4, 'MasterCard');
-(3, 5, 'MasterCard');
 
 INSERT INTO ORDERING VALUES
 (1, 1,'Sure', CURRENT_TIMESTAMP);
@@ -170,7 +169,7 @@ INSERT INTO SUB_ITEMS VALUES
 -- payment status
 -- date purchased
 INSERT INTO ORDERING VALUES
-(2, 5, 'pass', CURRENT_TIMESTAMP);
+(2, 2, 'pass', CURRENT_TIMESTAMP);
 
 -- invoice id
 -- subitems id --- SI_NUM the unique subitem number
@@ -181,9 +180,10 @@ INSERT INTO ORDERING VALUES
 -- total
 
 INSERT INTO INVOICE VALUES
-(1, 2, 2, 3, 11, 'name and some customer info', 107),
-(2, 3, 2, 1, 12, 'more info about the purchase', 107);
-
+-- "(incrementing unique number, the unique sub items that was purchased, customer id that is created when they register, quantity purchased)"
+(1, 2, 2, 3, 11, 'name and some cust', 107, TRUE),
+(2, 3, 2, 1, 12, 'more info about the purchase', 107, FALSE),
+(3, 4, 1, 3, 13, 'more info', 107, FALSE);
 
 -- "(incrementing unique number, the unique sub item that was purchased, customer id that is created when they register, the qty purchased,
 -- the price of the singular item, misc. info, total purchase amount)"
