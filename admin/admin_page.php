@@ -6,6 +6,7 @@
 
 <!-- PHP Code to load the database -->
 <?php
+<<<<<<< HEAD
 
   session_start();
   
@@ -37,6 +38,41 @@
           ITEMS.ITEM_NUM,
           ITEMS.TITLE
           FROM ITEMS";
+=======
+session_start();
+if ($_SESSION['type'] !== 'A') {
+ $_SESSION = array();
+ session_destroy();
+ header("location: ../LOGIN_SYSTEM/home.html");
+ exit;
+}
+else {
+$session_role = " Admin ";
+
+}
+if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
+  header("location: ../LOGIN_SYSTEM/home.html");
+ exit;
+}
+if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
+  header("location: ../LOGIN_SYSTEM/home.html");
+ exit;
+}
+
+require_once('../HOST/configAD.php');
+require_once('../LOGIN_SYSTEM/secure_data.php');
+$item_num = $title = null;
+
+$sql = "SELECT
+        ITEMS.ITEM_NUM,
+        ITEMS.TITLE
+        FROM ITEMS
+            ";
+$stmt=$link->prepare($sql);
+$stmt -> execute();
+$stmt->store_result();
+$stmt->bind_result($item_num,$title);
+>>>>>>> cartsystem
 
   $stmt=$link->prepare($sql);
   $stmt -> execute();
