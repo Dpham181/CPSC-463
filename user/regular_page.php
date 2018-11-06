@@ -68,7 +68,10 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
    <body>
      <!-- displaying items to the regular user -->
      <?php include 'regular_display.php'; ?>
-
+     <!-- saving the session value for reciept -->
+      <script>
+        var session = <?php echo json_encode($_SESSION); ?>;
+      </script>
      <!-- Modal for shopping cart -->
      <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-hidden="true">
        <div class='modal-dialog' role='document'>
@@ -84,16 +87,14 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
         </div>
         <div class="totalAmount text-center"><p>Total: $<span id="totalAmountValue">0</span></p></div>
         <div class='modal-footer'>
-            <button type='button'  name="purchase" class='btn btn-primary' onclick="purchaseReceipt()">Purchase Items</button>
+            <button type='button'  name="purchase" class='btn btn-primary' onclick="purchaseReceipt(session)">Purchase Items</button>
             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
         </div>
         </div>
     </div>
     </div>
     </div>
-    <?php
-      var_dump($_SESSION);
-    ?>
+    
      <!-- ________________________________________________________Start of Password change form -->
      <?php
      $NEWPASS="";
