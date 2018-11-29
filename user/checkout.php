@@ -16,10 +16,6 @@
     // this is how you get the brand name from the first item in the shopping cart
     // $data->Shopping[0]->Brand
     // sorry for making it ugly..
-    print_r($data->Session->email);
-    print_r($data->Shopping[0]->Brand);
-    date_default_timezone_set('America/Los_Angeles');
-    $date = date('m/d/Y h:i:s a');
     //query customer for the unique key value
     //update ordering with new incrememnt key, then unique key of customer, then timestamp
     //update invoice with orderid as the incremement key of ordering as long as the same key is valid.

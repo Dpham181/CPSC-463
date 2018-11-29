@@ -31,10 +31,9 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Latest compiled and minified CSS -->
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -45,7 +44,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
   <header>
 
       <a href="../home.html"><img src="../img/logo.png" width="10%" height="90%"></a>
-    
+
       <div class="flex-container">
         <span class="fa-stack fa-lg">
         <span class="fa fa-circle fa-stack-2x "></span>
@@ -53,16 +52,15 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
         <span class="fa cart-number fa-stack-1x"><p id="cart-number">0</p></span>
         </span>
 
-        <a href="#"><button class="btn btn-info btn-sm" type="button">Home</button></a>
-        <a href="purchase_history.php">
-          <button class="btn btn-default btn-sm" type="button">Purchase History</button>
-        </a>
+        <a href="regular_page.php"><button class="btn btn-info btn-sm" type="button">Home</button></a>
+        <a href="#"><button class="btn btn-light btn-sm" type="button">Purchase History</button></a>
         <a href="shared_items.php">
           <button class="btn btn-success btn-sm" type="button">Shared Orders</button>
         </a>
 
         <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> <?php echo $_SESSION['email'] . " ($session_role)"; ?>
+            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> 
+            <?php echo $_SESSION['email'] . " ($session_role)"; ?>
             <ul class="dropdown-menu">
                 <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
                 <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change Password</a></li>
@@ -75,12 +73,79 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 
 
    <body>
-     <!-- displaying items to the regular user -->
-     <?php include 'regular_display.php'; ?>
-     <!-- saving the session value for reciept -->
-      <script>
-        var session = <?php echo json_encode($_SESSION); ?>;
-      </script>
+
+  <!-- __________ Table __________ --> 
+  <table class="table table-hover table-dark" id="sharing_table">
+
+  <!-- Table header -->
+  <thead>
+    <tr>
+      <th scope="col">SHARING</th>
+      <th scope="col">PURCHASE DATE</th>
+      <th scope="col">ITEM NAME</th>
+      <th scope="col">QUANTITY</th>
+      <th scope="col">PRICE</th>
+    </tr>
+  </thead>
+  <!-- End of table header -->
+
+  <!-- Table body -->
+  <tbody>
+    <?php
+      $sql = "SELECT SUB_ITEMS.SI_NUM, SUB_ITEMS.BRAND, 
+                    SUB_ITEMS.PRICE, INVOICE.QUANTITY,
+                    INVOICE.SHARING, INVOICE.INVOICE_ID
+              FROM SUB_ITEMS, INVOICE
+              WHERE SUB_ITEMS.SI_NUM = INVOICE.ITEMS_ID
+              ORDER BY INVOICE.OR_ID DESC;";
+      $sql2 = "SELECT SUB_ITEMS.SI_NUM, SUB_ITEMS.BRAND, 
+                      SUB_ITEMS.PRICE, INVOICE.QUANTITY,
+                      INVOICE.SHARING, INVOICE.INVOICE_ID,
+                      t3.DATE_ORDER
+               FROM SUB_ITEMS, INVOICE JOIN ORDERING AS t3 ON t3.CORDER_ID = INVOICE.OR_ID
+               WHERE SUB_ITEMS.SI_NUM = INVOICE.ITEMS_ID;";
+      $stmt1=$link->prepare($sql);
+      $stmt1->execute();
+      $stmt1->store_result();
+      $stmt1->bind_result($SI_NUM, $BRAND, $PRICE, 
+                          $QUANTITY, $SHARING, $INVOICE_ID);
+      $NONE="Empty";
+      if($stmt1->num_rows == 0) {
+        echo "<tr>";
+        echo "<th scope=\"row\">"." "."</th>\n";
+        echo "<td>".$NONE."</td>\n";
+        echo "<td>".$NONE."</td>\n";
+        echo "<td>".$NONE."</td>\n";
+        echo "<td>".$NONE."</td>\n";
+      } else {
+        while($stmt1->fetch()) {
+          echo "<tr>";
+          echo "<th scope=\"row\">
+                  <a href='allow_share.php?id=" . $INVOICE_ID ."'>
+                    <button type='button' class='btn btn-success btn-sm'>
+                      <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>Share
+                    </button>
+                  </a>
+                  <a href='remove_share.php?id=" . $INVOICE_ID ."'>
+                    <button type='button' class='btn btn-danger btn-sm'>
+                      <span class='glyphicon glyphicon-minus' aria-hidden='true'></span>Remove
+                    </button>
+                  </a>"."</th>\n";
+          echo "<td>".$NONE."</td>\n";
+          echo "<td>".$BRAND."</td>\n";
+          echo "<td>".$QUANTITY."</td>\n";
+          echo "<td>".$PRICE."</td>\n";
+        }
+      }
+
+      $stmt1->data_seek(0);
+      $stmt1->close();
+    ?>
+  </tbody>
+  <!-- End of table body -->
+</table>
+<!-- ______________ End of table ___________________ -->
+
      <!-- Modal for shopping cart -->
      <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-hidden="true">
        <div class='modal-dialog' role='document'>
@@ -96,7 +161,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
         </div>
         <div class="totalAmount text-center"><p>Total: $<span id="totalAmountValue">0</span></p></div>
         <div class='modal-footer'>
-            <button type='button'  name="purchase" class='btn btn-primary' onclick="purchaseReceipt(session)">Purchase Items</button>
+            <button type='button'  name="purchase" class='btn btn-primary' onclick="purchaseReceipt()">Purchase Items</button>
             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
         </div>
         </div>
@@ -104,7 +169,8 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
     </div>
     </div>
     <?php
-        # query purchase data here
+      # query purchase data here
+        
     ?>
      <!-- ________________________________________________________Start of Password change form -->
      <?php
@@ -177,7 +243,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
              <div class="modal-content">
                  <div class="modal-header">
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                     <h4 class="modal-title">Change PassWord</h4>
+                     <h4 class="modal-title">Change Password</h4>
                  </div>
                  <div class="modal-body">
                      <form method="post" class="form-horizontal" role="form">
@@ -218,7 +284,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
 <?php
 $id = $_SESSION['id'];
 $sql = " SELECT
-          PROFILE.FIRST_NAME,
+          PROFILE.FIRST_NAME, 
           PROFILE.LAST_NAME,
           PROFILE.COUNTRY,
           PROFILE.ZIPCODE,

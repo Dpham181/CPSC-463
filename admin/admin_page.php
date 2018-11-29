@@ -1,6 +1,47 @@
 <!-- 
   This page is the home page of the admin panel.
   This page represents the Dashboard button.
+-->
+
+
+<!-- PHP Code to load the database -->
+<?php
+
+session_start();
+if ($_SESSION['type'] !== 'A') {
+ $_SESSION = array();
+ session_destroy();
+ header("location: ../LOGIN_SYSTEM/home.html");
+ exit;
+}
+else {
+$session_role = " Admin ";
+
+}
+if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
+  header("location: ../LOGIN_SYSTEM/home.html");
+ exit;
+}
+if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
+  header("location: ../LOGIN_SYSTEM/home.html");
+ exit;
+}
+
+require_once('../HOST/configAD.php');
+require_once('../LOGIN_SYSTEM/secure_data.php');
+$item_num = $title = null;
+
+$sql = "SELECT
+        ITEMS.ITEM_NUM,
+        ITEMS.TITLE
+        FROM ITEMS
+            ";
+$stmt=$link->prepare($sql);
+$stmt -> execute();
+$stmt->store_result();
+$stmt->bind_result($item_num,$title);
+
+
 
   Add item is not adding any new catgories.
 -->
@@ -195,7 +236,8 @@
                 SUB_ITEMS.PRICE,
                 SUB_ITEMS.NAME,
                 SUB_ITEMS.STATUS,
-                SUB_ITEMS.QUANITY
+                SUB_ITEMS.QUANTITY
+
                 FROM SUB_ITEMS
                 WHERE SUB_ITEMS.ISI_NUM = '$item_id' ";
 
@@ -225,7 +267,8 @@
           while($stmt1->fetch())
           {
             echo "<tr>";
-            echo "<th scope=\"row\">".$count++."</th>\n"; // Because we are having a count at 1, it will not match the SI_NUM if we delete an item
+            echo "<th scope=\"row\">".$count++."</th>\n";
+
             echo "<td>".$NAME."</td>\n";
             echo "<td>".$BRAND."</td>\n";
             echo "<td>".$PRICE."</td>\n";
@@ -388,9 +431,6 @@
     </div>
   </div>
   <!-- End of user changing password -->
-
-
-  <!-- Add subitems -->
   <div id="addsub" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -457,6 +497,7 @@
   </div> <!-- End div addsub -->
   <!-- End of add items -->
 
+
 <?php
 
   if (isset($_POST["add_sub"])){
@@ -510,10 +551,13 @@
   }
 
   ?>
+  <!-- __________End of add sub itmes___________-->
 
 
-  <!-- VIEW ORDER-->
+
+  <!-- _____________VIEW ORDER___________________-->
   <?php
+
 
     $sql =" SELECT  ORDERING.ORDER_ID,
                     ORDERING.CORDER_ID,
@@ -566,6 +610,7 @@
     </div>
   </div>
 </div>
+
 <!-- End of view orders -->
 
 </body>

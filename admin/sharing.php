@@ -2,8 +2,7 @@
   This page is the sharing page of the admin panel.
 
   The update profile needs to update the database before admins can view the users for sharing.
-    - The profile updates only if there is something in the database. I created a new user and it loads.
-    - However, if the profile gets deleted, it will not create another row in the database.
+
 -->
 
 
@@ -189,10 +188,10 @@
             echo "<tr>";
             echo "<td>
                   <a href='#'>
-                    <input class='form-check-input' type='checkbox' style='text-align: center; vertical-align: middle;'></input>
-                    <!--<button type='button' class='btn btn-light btn-sm'>
+                    <button type='button' class='btn btn-light btn-sm'>
                       <span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>
-                    </button>-->
+                    </button>
+
                   </a> 
                   </td>\n";
             echo "<td>".$PROFILE_ID."</td>\n";
