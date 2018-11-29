@@ -2,6 +2,7 @@
   This page is the sharing page of the admin panel.
 
   The update profile needs to update the database before admins can view the users for sharing.
+
 -->
 
 
@@ -190,6 +191,7 @@
                     <button type='button' class='btn btn-light btn-sm'>
                       <span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>
                     </button>
+
                   </a> 
                   </td>\n";
             echo "<td>".$PROFILE_ID."</td>\n";

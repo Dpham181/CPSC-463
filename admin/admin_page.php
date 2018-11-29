@@ -6,39 +6,7 @@
 
 <!-- PHP Code to load the database -->
 <?php
-<<<<<<< HEAD
 
-  session_start();
-  
-  if ($_SESSION['type'] !== 'A') {
-    $_SESSION = array();
-    session_destroy();
-    header("location: ../LOGIN_SYSTEM/home.html");
-    exit;
-  } else {
-    $session_role = " Admin ";
-  }
-
-  if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
-    header("location: ../LOGIN_SYSTEM/home.html");
-    exit;
-  }
-
-  if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
-    header("location: ../LOGIN_SYSTEM/home.html");
-    exit;
-  }
-
-  require_once('../HOST/configAD.php');
-  require_once('../LOGIN_SYSTEM/secure_data.php');
-
-  $item_num = $title = null;
-
-  $sql = "SELECT
-          ITEMS.ITEM_NUM,
-          ITEMS.TITLE
-          FROM ITEMS";
-=======
 session_start();
 if ($_SESSION['type'] !== 'A') {
  $_SESSION = array();
@@ -72,7 +40,46 @@ $stmt=$link->prepare($sql);
 $stmt -> execute();
 $stmt->store_result();
 $stmt->bind_result($item_num,$title);
->>>>>>> cartsystem
+
+
+
+  Add item is not adding any new catgories.
+-->
+
+
+<!-- PHP Code to load the database -->
+<?php
+
+  session_start();
+  
+  if ($_SESSION['type'] !== 'A') {
+    $_SESSION = array();
+    session_destroy();
+    header("location: ../LOGIN_SYSTEM/home.html");
+    exit;
+  } else {
+    $session_role = " Admin ";
+  }
+
+  if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
+    header("location: ../LOGIN_SYSTEM/home.html");
+    exit;
+  }
+
+  if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
+    header("location: ../LOGIN_SYSTEM/home.html");
+    exit;
+  }
+
+  require_once('../HOST/configAD.php');
+  require_once('../LOGIN_SYSTEM/secure_data.php');
+
+  $item_num = $title = null;
+
+  $sql = "SELECT
+          ITEMS.ITEM_NUM,
+          ITEMS.TITLE
+          FROM ITEMS";
 
   $stmt=$link->prepare($sql);
   $stmt -> execute();
@@ -230,6 +237,7 @@ $stmt->bind_result($item_num,$title);
                 SUB_ITEMS.NAME,
                 SUB_ITEMS.STATUS,
                 SUB_ITEMS.QUANTITY
+
                 FROM SUB_ITEMS
                 WHERE SUB_ITEMS.ISI_NUM = '$item_id' ";
 
@@ -260,6 +268,7 @@ $stmt->bind_result($item_num,$title);
           {
             echo "<tr>";
             echo "<th scope=\"row\">".$count++."</th>\n";
+
             echo "<td>".$NAME."</td>\n";
             echo "<td>".$BRAND."</td>\n";
             echo "<td>".$PRICE."</td>\n";
@@ -422,9 +431,6 @@ $stmt->bind_result($item_num,$title);
     </div>
   </div>
   <!-- End of user changing password -->
-
-
-  <!-- Add items -->
   <div id="addsub" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -491,7 +497,7 @@ $stmt->bind_result($item_num,$title);
   </div> <!-- End div addsub -->
   <!-- End of add items -->
 
-<!-- _________Add sub items________ -->
+
 <?php
 
   if (isset($_POST["add_sub"])){
@@ -548,8 +554,10 @@ $stmt->bind_result($item_num,$title);
   <!-- __________End of add sub itmes___________-->
 
 
+
   <!-- _____________VIEW ORDER___________________-->
   <?php
+
 
     $sql =" SELECT  ORDERING.ORDER_ID,
                     ORDERING.CORDER_ID,
@@ -602,7 +610,8 @@ $stmt->bind_result($item_num,$title);
     </div>
   </div>
 </div>
-<!-- ______________End of view orders _____________-->
+
+<!-- End of view orders -->
 
 </body>
 

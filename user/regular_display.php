@@ -1,5 +1,6 @@
 
 <?php
+
     require_once('../HOST/configRE.php');
 
     // echo "Success: A proper connection to MySQL was made! The my_db database is great." . PHP_EOL;
