@@ -128,7 +128,8 @@ INSERT INTO USERS_ACCCOUNT VALUES
 (1,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi', 'danhpham312@gmail.com',CURRENT_TIMESTAMP, 'A'),
 (2,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','anthonyle63@csu.fullerton.edu',CURRENT_TIMESTAMP,'R'),
 (3,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi','hecmed@csu.fullerton.edu',CURRENT_TIMESTAMP,'A'),
-(4,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'allensarmiento@csu.fulleton.edu',CURRENT_TIMESTAMP,'R');
+(4,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'allensarmiento@csu.fulleton.edu',CURRENT_TIMESTAMP,'R'),
+(5,'$2y$10$E.FxChiouNOFkP8hVaNvA.hdNK5gGwmgXRZ5dY3oFYeercG9J7yVi' ,'test@snax.io',CURRENT_TIMESTAMP,'R');
 
 
 -- CUSTOMER
@@ -136,7 +137,8 @@ INSERT INTO USERS_ACCCOUNT VALUES
 -- ITEMS
 -- SUB_ITEMS
 INSERT INTO CUSTOMER VALUES
-(1, 3, 'MasterCard');
+(1, 3, 'MasterCard'),
+(2, 5, 'MasterCard');
 
 INSERT INTO ORDERING VALUES
 (1, 1,'Sure', CURRENT_TIMESTAMP);
@@ -154,10 +156,42 @@ INSERT INTO ITEMS VALUES
 -- STATUS (Available/NotAvailable)
 -- QUANTITY (0-10)
 INSERT INTO SUB_ITEMS VALUES
-(1,1, 'Toffee Coffee', 10, '...', 'available', 10),
-(2,1, 'Hazlenut Haze', 11, '...', 'available', 5),
-(3,1, 'Coconut Coco', 12, '...', 'available', 4),
-(4,1, 'Caramel Cafe', 7, '...', 'available', 10),
-(5,1, 'Honey Cup', 8, '...', 'available', 8),
-(6,1, 'Pumpkin Latte', 12, '...', 'available', 6),
-(7,2, 'Brazilian Coffee', 6, '...', 'available', 7);
+(1,1, 'Toffee Coffee', 10, '...', 'available', 100),
+(2,1, 'Hazlenut Haze', 11, '...', 'available', 100),
+(3,1, 'Coconut Coco', 12, '...', 'available', 100),
+(4,1, 'Caramel Cafe', 7, '...', 'available', 100),
+(5,1, 'Honey Cup', 8, '...', 'available', 100),
+(6,1, 'Pumpkin Latte', 12, '...', 'available', 100),
+(7,2, 'Brazilian Coffee', 6, '...', 'available', 100);
+
+-- ORDER_ID
+-- CORDER_ID - user id --- CUSTOMER_ID
+-- payment status
+-- date purchased
+INSERT INTO ORDERING VALUES
+(2, 5, 'pass', CURRENT_TIMESTAMP);
+
+-- invoice id
+-- subitems id --- SI_NUM the unique subitem number
+-- order id ---- CUSTOMER_ID
+-- QUANTITY
+-- price
+-- customer INFO_ID lets make this a hash! or current date is probably smarter and easier
+-- total
+
+INSERT INTO INVOICE VALUES
+(1, 2, 2, 3, 11, 'name and some customer info', 107),
+(2, 3, 2, 1, 12, 'more info about the purchase', 107);
+
+
+-- "(incrementing unique number, the unique sub item that was purchased, customer id that is created when they register, the qty purchased,
+-- the price of the singular item, misc. info, total purchase amount)"
+
+-- select * from invoice where invoice.order_id = 2; (the 2 comes from the $session id in php)
+-- select SI_NUM, BRAND, PRICE, QUANTITY from sub_items;
+
+-- The process so far, When a person registers
+-- update the user in USERS_ACCCOUNT
+-- update user to Customer
+-- update user to ORDERING
+-- after purchase update INVOICE with values

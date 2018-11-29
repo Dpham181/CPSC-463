@@ -1,10 +1,12 @@
+
 <?php
-   require_once('../HOST/configRE.php');
-    
+
+    require_once('../HOST/configRE.php');
+
     // echo "Success: A proper connection to MySQL was made! The my_db database is great." . PHP_EOL;
     // echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
     $dataArray = array();
-    if ($someQryObject = $link->query("SELECT BRAND, PRICE, QUANTITY, TITLE FROM sub_items, items WHERE ISI_NUM = ITEM_NUM")) {
+    if ($someQryObject = $link->query("SELECT BRAND, PRICE, QUANTITY, TITLE, SI_NUM FROM sub_items, items WHERE ISI_NUM = ITEM_NUM")) {
         while ($row = $someQryObject->fetch_array()) {
             $dataArray[]=$row;
         }

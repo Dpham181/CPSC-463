@@ -31,11 +31,13 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Latest compiled and minified CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link href="../css/u.css" rel="stylesheet">
 
   </head>
@@ -45,25 +47,54 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
       <a href="../home.html"><img src="../img/logo.png" width="10%" height="90%"></a>
 
       <div   class="flex-container">
+        <span class="fa-stack fa-lg">
+        <span class="fa fa-circle fa-stack-2x "></span>
+        <a href="#" onclick="openCart()" data-toggle="modal" data-target="#cart-modal"><span class="fas fa-shopping-cart fa-stack-1x"></span></a>
+        <span class="fa cart-number fa-stack-1x"><p id="cart-number">0</p></span>
+        </span>
           <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span> <?php echo $_SESSION['email'] . " ($session_role)"; ?>
-                  <span class="caret"></span></button>
               <ul class="dropdown-menu">
                   <li><a href="../LOGIN_SYSTEM/logout.php"><span class='glyphicon-log-out' aria-hidden='true'></span>Logout</a></li>
                   <li><a href="#changepass" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Change PassWord</a></li>
                   <li><a href="#profile" data-toggle="modal"><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> Update Profile</a></li>
-
               </ul>
-
             </div>
           </div>
 
-  </header>
+  </header> 
 
 
    <body>
      <!-- displaying items to the regular user -->
      <?php include 'regular_display.php'; ?>
+     <!-- saving the session value for reciept -->
+      <script>
+        var session = <?php echo json_encode($_SESSION); ?>;
+      </script>
+     <!-- Modal for shopping cart -->
+     <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-hidden="true">
+       <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+        <div class='modal-header'>
+            <h5 class='modal-title'>Cart</h5>
+            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+            <span aria-hidden='true'>&times;</span>
+            </button>
+        </div>
+        <div class='modal-body'>
+          <p>Your cart is empty...</p>
+        </div>
+        <div class="totalAmount text-center"><p>Total: $<span id="totalAmountValue">0</span></p></div>
+        <div class='modal-footer'>
+            <button type='button'  name="purchase" class='btn btn-primary' onclick="purchaseReceipt(session)">Purchase Items</button>
+            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    
      <!-- ________________________________________________________Start of Password change form -->
      <?php
      $NEWPASS="";
