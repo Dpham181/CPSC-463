@@ -138,10 +138,19 @@ INSERT INTO USERS_ACCCOUNT VALUES
 -- SUB_ITEMS
 INSERT INTO CUSTOMER VALUES
 (1, 3, 'MasterCard'),
-(2, 4, 'MasterCard');
+(2, 4, 'MasterCard'),
+(3, 5, 'MasterCard');
+
+-- ORDER_ID
+-- CORDER_ID - user id --- CUSTOMER_ID
+-- payment status
+-- date purchased
 
 INSERT INTO ORDERING VALUES
-(1, 1,'Sure', CURRENT_TIMESTAMP);
+(1, 1,'Sure', CURRENT_TIMESTAMP),
+(2, 2, 'pass', CURRENT_TIMESTAMP),
+(3, 3, 'pass', CURRENT_TIMESTAMP);
+
 
 INSERT INTO ITEMS VALUES
 (1, 1,'CoffeeHut'),
@@ -163,13 +172,6 @@ INSERT INTO SUB_ITEMS VALUES
 (5,1, 'Honey Cup', 8, '...', 'available', 100),
 (6,1, 'Pumpkin Latte', 12, '...', 'available', 100),
 (7,2, 'Brazilian Coffee', 6, '...', 'available', 100);
-
--- ORDER_ID
--- CORDER_ID - user id --- CUSTOMER_ID
--- payment status
--- date purchased
-INSERT INTO ORDERING VALUES
-(2, 2, 'pass', CURRENT_TIMESTAMP);
 
 -- invoice id
 -- subitems id --- SI_NUM the unique subitem number

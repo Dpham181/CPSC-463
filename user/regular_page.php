@@ -94,7 +94,7 @@ if(!isset($_SESSION['id']) || empty($_SESSION['id'])){
             <span aria-hidden='true'>&times;</span>
             </button>
         </div>
-        <div class='modal-body'>
+        <div class='modal-body' id='cart-modal-body'>
           <p>Your cart is empty...</p>
         </div>
         <div class="totalAmount text-center"><p>Total: $<span id="totalAmountValue">0</span></p></div>
