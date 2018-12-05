@@ -1,4 +1,4 @@
-<!-- this file is in charge of updating the database for the user's history -->
+<!-- checkout.php :: this file is in charge of updating the database for the user's history -->
 <?php
     // $data = $_POST["http://localhost:8080/user/checkout.php"];
     // var_dump($_POST);
